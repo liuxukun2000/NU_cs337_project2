@@ -44,6 +44,7 @@ class GetRecipeHandler(BaseHandler):
         return f"Alright. So let's start working with **{self.recipe.title}**.\nWhat do you want to do?" \
             + "\n\n[1]. *Get the ingredients.*\n\n[2]. *Get the steps.*\n\n[3]. *Get the whole recipe.*\n\n[4]. *Start over.*"
 
-
+    def clear(self):
+        self.recipe = None
 
 

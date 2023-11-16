@@ -14,3 +14,7 @@ class BaseHandler:
     def handle(self, inp: str, cfg: Dict[str, Any]) -> str:
         """Handle the input."""
         raise NotImplementedError
+
+    def clear(self):
+        """Clear the handler."""
+        pass

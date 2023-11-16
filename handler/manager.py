@@ -2,6 +2,7 @@ from handler.continue_handler import ContinueHandler
 from handler.get_ingredient import GetIngredientHandler
 from handler.get_recipe import GetRecipeHandler
 from handler.get_step import GetStepHandler
+from handler.number import NumberHandler
 from handler.search import SearchHandler
 from handler.select_web import SelectWebHandler
 from handler.default import DefaultHandler
@@ -18,9 +19,12 @@ class HandlerManager:
             ContinueHandler(),
             SearchHandler(),
             YesHandler(),
+            NumberHandler(),
         ]
         self.default_handler = DefaultHandler()
         self.cfg = dict(handler=[])
+        for i in self.handlers:
+            self.cfg[i.type()] = i
 
     def handle(self, inp: str) -> str:
         max_score = 0

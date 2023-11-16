@@ -32,3 +32,7 @@ class GetStepHandler(BaseHandler):
             return f"Sorry, there is no more step."
         return f"Sure. Here is the **Step {self.step}:**\n\n{recipe.steps[self.step - 1]}"
     ## TODO: get nth step
+
+    def clear(self):
+        self.title = ""
+        self.step = 0
