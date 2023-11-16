@@ -3,11 +3,12 @@ import re
 from handler.base import BaseHandler
 from spider.allrecipes import AllrecipesSpider
 from spider.bonappetit import BonappetitSpider
+from spider.delish import DelishSpider
 
 
 class SelectWebHandler(BaseHandler):
     def __init__(self):
-        spiders = [AllrecipesSpider, BonappetitSpider]
+        spiders = [AllrecipesSpider, BonappetitSpider, DelishSpider]
         self.spider = None
         self.spiders = {spider.name(): spider for spider in spiders}
 
