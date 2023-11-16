@@ -30,5 +30,5 @@ class GetStepHandler(BaseHandler):
         cfg['handler'].append(self)
         if self.step > len(recipe.steps):
             return f"Sorry, there is no more step."
-        return f"Sure. Here is the step {self.step}:\n{recipe.steps[self.step - 1]}"
+        return f"Sure. Here is the **Step {self.step}:**\n\n{recipe.steps[self.step - 1]}"
     ## TODO: get nth step

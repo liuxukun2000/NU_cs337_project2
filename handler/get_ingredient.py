@@ -23,4 +23,4 @@ class GetIngredientHandler(BaseHandler):
             return "Please specify a recipe first."
         recipe = recipe_handler[-1].recipe
         cfg['handler'].append(self)
-        return f"Here are the ingredients of: {recipe.title}\n" + "\n".join(recipe.ingredients)
+        return f"Here are the ingredients of: **{recipe.title}:**\n\n* [x] " + "\n\n* [x] ".join(recipe.ingredients)

@@ -44,3 +44,9 @@ class HandlerManager:
                 break
             print(self.handle(inp))
 
+    def stream(self, inp: str):
+        ans = self.handle(inp).split(' ')
+        for i in ans:
+            yield i
+
+

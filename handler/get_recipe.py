@@ -41,8 +41,8 @@ class GetRecipeHandler(BaseHandler):
         except Exception as e:
             return f"Sorry, I cannot get the recipe. {e}"
         cfg['handler'].append(self)
-        return f"Alright. So let's start working with {self.recipe.title}.\nWhat do you want to do?" \
-            + "\n1. Get the ingredients.\n2. Get the steps.\n3. Get the whole recipe.\n4. Start over."
+        return f"Alright. So let's start working with **{self.recipe.title}**.\nWhat do you want to do?" \
+            + "\n\n[1]. *Get the ingredients.*\n\n[2]. *Get the steps.*\n\n[3]. *Get the whole recipe.*\n\n[4]. *Start over.*"
 
 
 

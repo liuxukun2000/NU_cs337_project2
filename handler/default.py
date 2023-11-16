@@ -20,5 +20,5 @@ class DefaultHandler(BaseHandler):
             if handler:
                 self.handler = handler[-1]
                 cfg['handler'].append(self)
-                return f"Should I continue to the {self.handler.step + 1}nd step of {self.handler.title}?"
+                return f"Should I continue to the **{self.handler.step + 1}nd Step** of **{self.handler.title}**?"
         return "Sorry, I don't understand."

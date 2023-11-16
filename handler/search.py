@@ -27,5 +27,6 @@ class SearchHandler(BaseHandler):
         if pos == -1:
             return "Sorry, I don't understand."
         cfg['handler'].append(self)
+        text = ''.join([i for i in text if i.isalpha() or i == ' '])
         text = text.replace(" ", "+")
         return f"No worries. I found a reference for you: https://www.youtube.com/results?search_query={text}"
