@@ -6,12 +6,16 @@ from bs4 import BeautifulSoup
 
 class AllrecipesSpider(BaseSpider):
     def __init__(self, title: str, ingredients: List[str], steps: List[str]):
-        self.title = title
+        self.title = title.strip(" \n")
         self.ingredients = [item for item in ingredients if item]
         self.steps = [item for item in steps if item]
 
     def __str__(self):
         return f"{self.title}\n\nIngredients:\n" + "\n".join(self.ingredients) + "\n\nSteps:\n" + "\n".join(self.steps)
+
+    @staticmethod
+    def name() -> str:
+        return "allrecipes"
 
     @staticmethod
     def get(url: str) -> "AllrecipesSpider":
