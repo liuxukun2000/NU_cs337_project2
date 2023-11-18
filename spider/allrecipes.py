@@ -1,6 +1,6 @@
 from typing import List
 
-from spider.base import BaseSpider
+from base import BaseSpider
 import requests
 from bs4 import BeautifulSoup
 
@@ -21,11 +21,14 @@ class AllrecipesSpider(BaseSpider):
     def get(url: str) -> "AllrecipesSpider":
         response = requests.get(url).text
         soup = BeautifulSoup(response, "html.parser")
+        #print("here")
         title = soup.select_one("#article-heading_1-0").text
         ingredients = soup.select_one("#mntl-structured-ingredients_1-0 > ul")
+        print("1111ingredients",ingredients)
         ingredients = [ingredient.text.strip(" \n") for ingredient in ingredients.children if ingredient != "\n"]
-        steps = soup.select_one("#mntl-sc-block_2-0")
-        steps = [step.text.strip(" \n") for step in steps.children if step != "\n"]
+        #steps = soup.select_one("#mntl-sc-block_2-0")
+        #steps = [step.text.strip(" \n") for step in steps.children if step != "\n"]
+        steps=["STEEPSSS"]
         return AllrecipesSpider(title, ingredients, steps)
 
 if __name__ == "__main__":
