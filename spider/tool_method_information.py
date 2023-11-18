@@ -4,10 +4,12 @@ from base import BaseSpider
 import requests
 from bs4 import BeautifulSoup
 from extracter_list import TOOLS
+from extracter_list import PRIMARY_COOKING_METHODS
+from extracter_list import SECONDARY_COOKING_METHODS
 import string
 
 
-class Tool_Info_Spider(BaseSpider):
+class Tool_Method_Info_Spider(BaseSpider):
     def __init__(self, title: str, ingredients: List[str], steps: List[str]):
         self.title = title.strip(" \n")
         self.ingredients = [item for item in ingredients if item]
@@ -84,7 +86,7 @@ class Tool_Info_Spider(BaseSpider):
     #     return AllrecipesSpider(title, ingredients, steps)
 
     @staticmethod
-    def tools_from_steps(url:str):
+    def info_from_steps(url:str):
         response = requests.get(url).text
         soup = BeautifulSoup(response, "html.parser")
         steps_ol = soup.select_one("#mntl-sc-block_2-0")
@@ -101,7 +103,7 @@ class Tool_Info_Spider(BaseSpider):
     
     @staticmethod
     def get_tools(url:str):
-        steps = Tool_Info_Spider.tools_from_steps(url)
+        steps = Tool_Method_Info_Spider.info_from_steps(url)
         tool_in_each_step={}
         for i in range(len(steps)):
             #tool_list=[]
@@ -113,7 +115,20 @@ class Tool_Info_Spider(BaseSpider):
         
         return tool_in_each_step
 
+    @staticmethod
+    def get_methods(url:str):
+        steps = Tool_Method_Info_Spider.info_from_steps(url)
+        primary_method_in_each_step={}
+        secondary_method_in_each_step={}
+        for i in range(len(steps)):
+            normalized_sentence = steps[i].lower().translate(str.maketrans('', '', string.punctuation))
 
+            primary_method_list= [item for item in PRIMARY_COOKING_METHODS if item.lower() in normalized_sentence]
+            secondary_method_list= [item for item in SECONDARY_COOKING_METHODS if item.lower() in normalized_sentence]
+            primary_method_in_each_step["step "+str(i+1)]=primary_method_list
+            secondary_method_in_each_step["step "+str(i+1)]=secondary_method_list
+        
+        return (primary_method_in_each_step,secondary_method_in_each_step)
         
 
 
@@ -121,7 +136,12 @@ if __name__ == "__main__":
     #x = AllrecipesSpider.get("https://www.allrecipes.com/recipe/234860/butternut-squash-lasagna/")
     #x = AllrecipesSpider.get('https://www.allrecipes.com/recipe/19354/cheese-lasagna/')
     #print(x)
-    tools=Tool_Info_Spider.get_tools("https://www.allrecipes.com/recipe/234860/butternut-squash-lasagna/")
-    print(tools)
+    website_url='https://www.allrecipes.com/recipe/19354/cheese-lasagna/'
+    tools=Tool_Method_Info_Spider.get_tools(website_url)
+    print("printing_tools: \n",tools)
+
+    primary_method, secondary_method=Tool_Method_Info_Spider.get_methods(website_url)
+    print("\n primary_method: \n", primary_method)
+    print("\n secondary_method: \n", secondary_method)
 
 
