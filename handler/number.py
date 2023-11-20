@@ -11,7 +11,7 @@ class NumberHandler(BaseHandler):
 
     def match(self, inp: str, cfg) -> int:
         text = inp.lower().strip()
-        if 1 <= len(text) <= 3 and text[0].isalnum() and int(text[0]) in range(1, 5):
+        if 1 <= len(text) <= 3 and text[0].isdigit() and int(text[0]) in range(1, 5):
             return 100
         return 0
 
@@ -24,6 +24,8 @@ class NumberHandler(BaseHandler):
             return cfg['get_ingredient'].handle(inp, cfg)
         elif op == 2:
             return cfg['get_step'].handle(inp, cfg)
+        elif op == 3:
+            return str(cfg['get_recipe'].recipe)
         elif op == 4:
             cfg['handler'] = []
             for name, handler in cfg.items():
