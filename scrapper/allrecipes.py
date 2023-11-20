@@ -1,6 +1,6 @@
 from typing import List
 
-from spider.base import BaseSpider
+from scrapper.base import BaseSpider
 import requests
 from bs4 import BeautifulSoup
 

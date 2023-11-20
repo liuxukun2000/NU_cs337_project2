@@ -1,6 +1,6 @@
 from typing import List
 from lxml import etree
-from spider.base import BaseSpider
+from scrapper.base import BaseSpider
 import requests
 from bs4 import BeautifulSoup
 

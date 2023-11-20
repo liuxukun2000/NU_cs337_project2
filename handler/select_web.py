@@ -1,9 +1,9 @@
 import re
 
 from handler.base import BaseHandler
-from spider.allrecipes import AllrecipesSpider
-from spider.bonappetit import BonappetitSpider
-from spider.delish import DelishSpider
+from scrapper.allrecipes import AllrecipesSpider
+from scrapper.bonappetit import BonappetitSpider
+from scrapper.delish import DelishSpider
 
 
 class SelectWebHandler(BaseHandler):

@@ -15,6 +15,8 @@ class SearchHandler(BaseHandler):
             return 1
         return 0
 
+
+
     def handle(self, inp: str, cfg) -> str:
         pos = inp.lower().find(" i ")
         text = inp.lower().strip()
