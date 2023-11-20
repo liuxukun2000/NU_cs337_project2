@@ -39,7 +39,7 @@ class GetRecipeHandler(BaseHandler):
         try:
             self.recipe = spider.get(url)
         except Exception as e:
-            return f"Sorry, I cannot get the recipe. {e}"
+            return f"Sorry, I cannot get this recipe."
         cfg['handler'].append(self)
         return f"Alright. So let's start working with **{self.recipe.title}**.\nWhat do you want to do?" \
             + "\n\n[1]. **Get the ingredients.**\n\n[2]. **Get the steps.**\n\n[3]. **Get the whole recipe.**\n\n[4]. **Start over.**"
