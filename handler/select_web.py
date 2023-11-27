@@ -1,12 +1,14 @@
 import re
 
 from handler.base import BaseHandler
-from spider.allrecipes import AllrecipesSpider
+from scrapper.allrecipes import AllrecipesSpider
+from scrapper.bonappetit import BonappetitSpider
+from scrapper.delish import DelishSpider
 
 
 class SelectWebHandler(BaseHandler):
     def __init__(self):
-        spiders = [AllrecipesSpider]
+        spiders = [AllrecipesSpider, BonappetitSpider, DelishSpider]
         self.spider = None
         self.spiders = {spider.name(): spider for spider in spiders}
 
@@ -32,3 +34,6 @@ class SelectWebHandler(BaseHandler):
         cfg['handler'].append(self)
         self.spider = self.spiders[ans[0]]
         return f"Sure. I will use {ans[0]}. Please specify a URL."
+
+    def clear(self):
+        self.spider = None

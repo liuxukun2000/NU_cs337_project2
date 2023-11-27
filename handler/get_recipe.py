@@ -27,7 +27,7 @@ class GetRecipeHandler(BaseHandler):
         select_handler = [handler for handler in cfg['handler'] if handler.type() == "select_web"]
         if not select_handler:
             if SelectWebHandler().handle(inp, cfg).startswith("Sorry"):
-                return "Please specify a website first."
+                return "It seems that I don't support this website. Please try another one."
             else:
                 select_handler = cfg['handler']
         select_handler = select_handler[-1]
@@ -39,11 +39,12 @@ class GetRecipeHandler(BaseHandler):
         try:
             self.recipe = spider.get(url)
         except Exception as e:
-            return f"Sorry, I cannot get the recipe. {e}"
+            return f"Sorry, I cannot get this recipe."
         cfg['handler'].append(self)
         return f"Alright. So let's start working with **{self.recipe.title}**.\nWhat do you want to do?" \
-            + "\n\n[1]. *Get the ingredients.*\n\n[2]. *Get the steps.*\n\n[3]. *Get the whole recipe.*\n\n[4]. *Start over.*"
+            + "\n\n[1]. **Get the ingredients.**\n\n[2]. **Get the steps.**\n\n[3]. **Get the whole recipe.**\n\n[4]. **Start over.**"
 
-
+    def clear(self):
+        self.recipe = None
 
 
