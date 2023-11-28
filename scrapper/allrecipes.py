@@ -1,6 +1,6 @@
 from typing import List
-
-from base import BaseSpider
+from utils.utils import get_servings
+from scrapper.base import BaseSpider
 import requests
 from bs4 import BeautifulSoup
 
@@ -31,7 +31,7 @@ class AllrecipesSpider(BaseSpider):
         steps = soup.select_one("#mntl-sc-block_2-0")
         steps = [step.text.strip(" \n") for step in steps.children if step != "\n"]
         servings = soup.select_one("#recipe-details_1-0 > div.mntl-recipe-details__content > div:nth-child(4) > div.mntl-recipe-details__value").text
-        return AllrecipesSpider(title, ingredients, steps, int(servings))
+        return AllrecipesSpider(title, ingredients, steps, get_servings(servings))
 
 if __name__ == "__main__":
     x = AllrecipesSpider.get("https://www.allrecipes.com/recipe/230904/hearty-barley-turkey-soup/")
