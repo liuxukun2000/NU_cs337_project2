@@ -24,13 +24,12 @@ class GetRecipeHandler(BaseHandler):
         return 1
 
     def handle(self, inp: str, cfg) -> str:
+        if SelectWebHandler().handle(inp, cfg).startswith("Sorry"):
+            return "It seems that I don't support this website. Please try another one."
         select_handler = [handler for handler in cfg['handler'] if handler.type() == "select_web"]
         if not select_handler:
-            if SelectWebHandler().handle(inp, cfg).startswith("Sorry"):
-                return "It seems that I don't support this website. Please try another one."
-            else:
-                select_handler = cfg['handler']
-        select_handler = select_handler[-1]
+            return "It seems that I don't support this website. Please try another one."
+        select_handler = cfg['handler'][-1]
         spider = select_handler.spider
         url = find_url(inp)
         if len(url) > 1:

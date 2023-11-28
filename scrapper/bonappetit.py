@@ -4,14 +4,15 @@ from scrapper.base import BaseSpider
 import requests
 from bs4 import BeautifulSoup
 
+from utils.utils import get_servings
+
+
 class BonappetitSpider(BaseSpider):
-    def __init__(self, title: str, ingredients: List[str], steps: List[str]):
+    def __init__(self, title: str, ingredients: List[str], steps: List[str], servings: int = -1):
         self.title = title.strip(" \n")
         self.ingredients = [item for item in ingredients if item]
         self.steps = [item for item in steps if item]
-
-    def __str__(self):
-        return f"{self.title}\n\nIngredients:\n" + "\n".join(self.ingredients) + "\n\nSteps:\n" + "\n".join(self.steps)
+        self.servings = servings
 
     @staticmethod
     def name() -> str:
@@ -42,8 +43,8 @@ class BonappetitSpider(BaseSpider):
                 steps.append(text.strip(" \n"))
             else:
                 steps[-1] += " " + text.strip(" \n")
-
-        return BonappetitSpider(title, ingredients, steps)
+        servings = tree.xpath("/html/body/div[1]/div/main/article/div[2]/div[1]/div[1]/div/div[4]/p")[0].text
+        return BonappetitSpider(title, ingredients, steps, get_servings(servings))
 
 if __name__ == "__main__":
     x = BonappetitSpider.get("https://www.bonappetit.com/recipe/sheet-pan-turkey-and-gravy")

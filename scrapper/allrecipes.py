@@ -11,10 +11,6 @@ class AllrecipesSpider(BaseSpider):
         self.steps = [item for item in steps if item]
         self.servings = servings
 
-    def __str__(self):
-        return f"**{self.title}**\n\n**Ingredients:**\n\n" + "\n\n".join(self.ingredients) + "\n\n**Steps:**\n\n" + "\n\n".join(self.steps) +\
-    f"\n\nServings\n\n{self.servings}"
-
     @staticmethod
     def name() -> str:
         return "allrecipes"
