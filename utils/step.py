@@ -20,39 +20,3 @@ class RecipeStep():
 
     def __hash__(self):
         return hash((self.name, self.description, self.ingredients, self.equipment, self.instructions))
-
-    def __lt__(self, other):
-        return self.name < other.name
-
-    def __le__(self, other):
-        return self.name <= other.name
-
-    def __gt__(self, other):
-        return self.name > other.name
-
-    def __ge__(self, other):
-        return self.name >= other.name
-
-    def __getitem__(self, key):
-        return self.__dict__[key]
-
-    def __setitem__(self, key, value):
-        self.__dict__[key] = value
-
-    def to_dict(self):
-        return {"name": self.name, "description": self.description, "ingredients": self.ingredients, "equipment": self.equipment, "instructions": self.instructions}
-
-    def to_json(self):
-        return json.dumps(self.to_dict(), indent=4)
-
-    def to_yaml(self):
-        return yaml.dump(self.to_dict(), indent=4)
-
-    def to_xml(self):
-        return dicttoxml(self.to_dict(), custom_root="step", attr_type=False).decode("utf-8")
-
-    def to_csv(self):
-        return ",".join([self.name, self.description, self.ingredients, self.equipment, self.instructions])
-
-    def to_tsv(self):
-        return "\t".join([self.name, self.description, self.ingredients, self.equipment, self.instructions])
