@@ -22,68 +22,6 @@ class Tool_Method_Info_Spider(BaseSpider):
     def name() -> str:
         return "allrecipes"
     
-    #@staticmethod
-    # def ingredient_details(url:str):
-    #     response = requests.get(url).text
-    #     soup = BeautifulSoup(response, "html.parser")
-        
-
-    #     ingredient_elements = soup.select(".mntl-structured-ingredients__list-item")
-
-        
-    #     formatted_ingredients_dict = {}
-    #     formatted_ingredients_list = []
-
-
-        
-    #     print("hereeeeeee")
-    #     for ingredient in ingredient_elements:
-            
-    #         quantity = ingredient.find('span', {'data-ingredient-quantity': 'true'}).text.strip()
-    #         unit = ingredient.find('span', {'data-ingredient-unit': 'true'}).text.strip()
-    #         name = ingredient.find('span', {'data-ingredient-name': 'true'}).text.strip()
-    #         # print("quantity ",quantity)
-    #         # print("unit ",unit)
-    #         #print("name ",name)
-    #         ingredient_information = name.split(',',1)
-    #         name=ingredient_information[0]
-    #         descriptor = ingredient_information[1] if len(ingredient_information) > 1 else ''
-            
-    #         formatted_ingredients_dict[name]={"unit":unit, "quantity":quantity,"descriptor":descriptor}
-    #         formatted_ingredients_list.append([name,unit, quantity,descriptor])
-        
-        
-    #     # for item in formatted_ingredients:
-    #     #     print(item)
-    #     #print(formatted_ingredients_dict)
-    #     return formatted_ingredients_dict
-
-    # @staticmethod
-    # def get(url: str) -> "AllrecipesSpider":
-    #     response = requests.get(url).text
-    #     soup = BeautifulSoup(response, "html.parser")
-    #     title = soup.select_one("#article-heading_1-0").text
-    #     ingredients = soup.select_one("#mntl-structured-ingredients_1-0 > ul")
-    #     #print("1111ingredients",ingredients)
-    #     ingredients = [ingredient.text.strip(" \n") for ingredient in ingredients.children if ingredient != "\n"]
-    #     steps = soup.select_one("#mntl-sc-block_2-0")
-    #     # print("STEPSSSS",steps)
-    #     # steps = [step.text.strip(" \n") for step in steps.children if step != "\n"]
-    #     #steps=["STEEPSSS"]
-    #     steps_ol = soup.select_one("#mntl-sc-block_2-0")
-
-        
-    #     if steps_ol:
-    #         step_elements = steps_ol.find_all('li')
-    #         steps = []
-
-    #         for step in step_elements:
-    #             p_tag = step.find('p')
-    #             if p_tag:
-    #                 steps.append(p_tag.text.strip() + ("\n"))
-
-
-    #     return AllrecipesSpider(title, ingredients, steps)
 
     @staticmethod
     def info_from_steps(url:str):

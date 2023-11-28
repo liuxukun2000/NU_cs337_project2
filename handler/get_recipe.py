@@ -13,6 +13,7 @@ def find_url(inp: str) -> List[str]:
 class GetRecipeHandler(BaseHandler):
     def __init__(self):
         self.recipe = None
+        self.url = None
 
     @staticmethod
     def type() -> str:
@@ -34,9 +35,9 @@ class GetRecipeHandler(BaseHandler):
         url = find_url(inp)
         if len(url) > 1:
             return "Sorry, I don't support multiple URLs."
-        url = url[0]
+        self.url = url[0]
         try:
-            self.recipe = spider.get(url)
+            self.recipe = spider.get(self.url)
         except Exception as e:
             return f"Sorry, I cannot get this recipe."
         cfg['handler'].append(self)
