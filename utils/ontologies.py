@@ -62,7 +62,7 @@ INGREDIENTS = {
         
     "cheese": 
         [
-            "american cheese", "asiago cheese", "blue cheese", "brocconcini", "brie cheese",
+            "cheese", "american cheese", "asiago cheese", "blue cheese", "brocconcini", "brie cheese",
             "burrata cheese", "butterkäse", "cabrales", "camembert cheese", "cheddar cheese",
             "colby cheese", "cotija cheese", "cottage cheese", "cream cheese", "danish blue (danablu)",
             "edam", "emmental", "feta cheese", "fontina cheese", "goat cheese",
