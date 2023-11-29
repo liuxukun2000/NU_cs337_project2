@@ -7,33 +7,13 @@ SECONDARY_COOKING_METHODS = ['pour', 'toast','topped','combine','chop', 'grate',
 
 
 COOKING_MEASUREMENTS = [
-    "bunch",
-    "cloves",
-    "coffeespoon",
-    "cup",
-    "dash",
-    "dessertspoon",
-    "drop",
-    "fluid dram",
-    "fluid ounce",
-    "gallon",
-    "gill",
-    "handful",
-    "ounce",
-    "piece",
-    "pinch",
-    "pint",
-    "pound",
-    "quart",
-    "saltspoon",
-    "slice",
-    "smidgen",
-    "stalk",
-    "stick",
-    "tablespoon",
-    "teacup",
-    "teaspoon",
-    "wineglass"
+    'bunch', 'bunches', 'clove', 'cloves', 'coffeespoon', 'coffeespoons', 'cup', 'cups',
+    'dash', 'dashes', 'dessertspoon', 'dessertspoons', 'drop', 'drops', 'fluid dram', 'fluid drams',
+    'fluid ounce', 'fluid ounces', 'gallon', 'gallons', 'gill', 'gills', 'handful', 'handfuls',
+    'ounce', 'ounces', 'piece', 'pieces', 'pinch', 'pinches', 'pint', 'pints', 'pound', 'pounds',
+    'quart', 'quarts', 'saltspoon', 'saltspoons', 'slice', 'slices', 'smidgen', 'smidgens',
+    'stalk', 'stalks', 'stick', 'sticks', 'tablespoon', 'tablespoons', 'teacup', 'teacups',
+    'teaspoon', 'teaspoons', 'wineglass', 'wineglasses'
 ]
 
 COOKING_TOOLS = ['aluminum foil', 'adjustable measuring cup', 'aluminum sheet pan', 'apple corer', 
@@ -67,27 +47,44 @@ COOKING_TOOLS = ['aluminum foil', 'adjustable measuring cup', 'aluminum sheet pa
 'wooden spoon', 'zester']
 
 INGREDIENTS = {
-    "eggs_and_dairy":
-        ["eggs", "milk", "butter", "cheese", "yogurt", "cream", "sour cream", "buttermilk", 
-    "cottage cheese", "cream cheese", "ghee", "kefir", "ricotta", "whey", "skim milk", 
-    "whole milk", "condensed milk", "evaporated milk", "powdered milk", "egg whites", 
-    "egg yolks", "hard-boiled eggs", "scrambled eggs", "omelette", "feta", "mozzarella", 
-    "parmesan", "cheddar", "swiss cheese", "blue cheese", "brie", "camembert", "gouda", 
-    "goat cheese", "monterey jack", "colby", "provolone", "asiago", "mascarpone", "paneer",
-    "halloumi", "stilton", "quark", "manchego", "edam", "emmental", "gorgonzola", 
-    "havarti", "pecorino", "roquefort", "taleggio", "vacherin"
+    "eggs":
+        [ "eggs", "egg", "whole eggs", "egg whites", "egg yolks", "liquid egg product", "dried egg whites",
+    "dried egg yolks", "dried whole eggs", "frozen egg whites", "frozen egg yolks", 
+    "scrambled egg mix", "egg powder", "egg substitutes"
     ],
         
-    "meat_and_poultry":
+    "milk_and_dairy":
         [
-        "eggs", "milk", "butter", "cheese", "yogurt", "cream", "sour cream", "buttermilk", 
-        "cottage cheese", "cream cheese", "ghee", "kefir", "ricotta", "whey", "skim milk", 
-        "whole milk", "condensed milk", "evaporated milk", "powdered milk", "egg whites", 
-        "egg yolks", "hard-boiled eggs", "scrambled eggs", "omelette", "feta", "mozzarella", 
-        "parmesan", "cheddar", "swiss cheese", "blue cheese", "brie", "camembert", "gouda", 
-        "goat cheese", "monterey jack", "colby", "provolone", "asiago", "mascarpone", "paneer",
-        "halloumi", "stilton", "quark", "manchego", "edam", "emmental", "gorgonzola", 
-        "havarti", "pecorino", "roquefort", "taleggio", "vacherin"
+            "milk", "yogurt", "cream", "butter", "sour cream", "buttermilk", "ice cream", 
+        "kefir", "heavy cream", "half and half", "whipped cream", "condensed milk", 
+        "evaporated milk", "powdered milk", "clotted cream", "crème fraîche", "ghee"
+        ],
+        
+    "cheese": 
+        [
+            "american cheese", "asiago cheese", "blue cheese", "brocconcini", "brie cheese",
+            "burrata cheese", "butterkäse", "cabrales", "camembert cheese", "cheddar cheese",
+            "colby cheese", "cotija cheese", "cottage cheese", "cream cheese", "danish blue (danablu)",
+            "edam", "emmental", "feta cheese", "fontina cheese", "goat cheese",
+            "gorgonzola", "gouda", "grana padano", "gruyere", "halloumi",
+            "havarti cheese", "hrudka", "jarlsberg", "manchego cheese", "mascarpone",
+            "monterey jack", "mozzarella", "muenster cheese", "neufchâtel", "paneer",
+            "parmesan", "parmigiano reggiano", "pecorino romano", "pepper jack", "processed cheese",
+            "provolone cheese", "quark", "queso blanco", "queso fresco", "raclette",
+            "ricotta cheese", "romano", "roquefort", "sakura", "sirene",
+            "stilton", "string cheese", "swiss"
+        ],
+        
+    "meat_and_poultry":
+        [ 
+        "beef", "pork", "chicken", "turkey", "lamb", "duck", "goose", "veal", 
+        "rabbit", "quail", "pigeon", "venison", "buffalo", "boar", "bacon", 
+        "ham", "sausage", "brisket", "rib", "steak", "ground beef", "ground pork", 
+        "ground turkey", "ground chicken", "chicken breast", "chicken thighs", "chicken wings", 
+        "chicken drumsticks", "pork chops", "pork loin", "pork belly", "lamb chops", 
+        "lamb shank", "rack of lamb", "corned beef", "pastrami", "prosciutto", "salami", 
+        "pepperoni", "chorizo", "biltong", "jerky", "hot dog", "frankfurter", "meatloaf", 
+        "meatballs", "liver", "kidney", "heart", "tongue", "tripe", "oxtail"
     ],
         
     "seafood":
@@ -102,7 +99,7 @@ INGREDIENTS = {
             "sea scallops", "cockles", "geoduck", "razor clams", "welk"
         ],
         
-    "nuts and seeds":
+    "nuts_and_seeds":
         [
             "almonds", "cashews", "pistachios", "walnuts", "pecans", "macadamia nuts", "pine nuts", 
             "peanuts", "hazelnuts", "chestnuts", "sesame seeds", "pumpkin seeds", "sunflower seeds", 
@@ -131,9 +128,195 @@ INGREDIENTS = {
         "ginger", "turmeric", "jicama", "water chestnut", "hearts of palm", "sunchoke", "rapini", "radicchio"
     ],
     
-    "herbs and spices": [
-        
+    "herbs_and_spices": [
+        "basil", "oregano", "thyme", "rosemary", "sage", "parsley", "cilantro", "dill", 
+        "mint", "chives", "tarragon", "bay leaves", "lemongrass", "coriander", "cumin", 
+        "paprika", "turmeric", "saffron", "fennel", "cinnamon", "star anise", "cloves", 
+        "nutmeg", "allspice", "cardamom", "ginger", "garlic", "garlic powder", "onion powder", 
+        "chili powder", "cayenne pepper", "black pepper", "white pepper", "red pepper flakes", 
+        "mustard seeds", "fenugreek", "sumac", "za'atar", "harissa", "garam masala", "curry powder", 
+        "anise", "caraway seeds", "juniper berries", "marjoram", "asafoetida", "lavender", 
+        "kaffir lime leaves", "vanilla", "masala", "berbere", "ras el hanout", "ajwain", 
+        "bayberry", "chervil", "lovage", "sichuan pepper", "tamarind", "wasabi", "horseradish", 
+        "mace", "annatto", "arrowroot", "galangal", "grains of paradise", "lemon balm", 
+        "lemon verbena", "licorice root", "savory", "spearmint", "valerian", "verbena", 
+        "wintergreen", "green onion", "five-spice powder", "hoisin sauce", "soy sauce", 
+        "fish sauce", "oyster sauce", "Thai basil", "holy basil", "dried shrimp", "palm sugar",
+        "kaffir lime", "galangal", "Thai chilies"
+    ],
+    
+    "sauces": [
+        "ketchup", "mustard", "mayonnaise", "barbecue sauce", "hot sauce", "soy sauce", 
+        "teriyaki sauce", "sriracha", "hollandaise", "béarnaise", "alfredo sauce", "marinara sauce",
+        "pesto", "tartar sauce", "chimichurri", "aioli", "hoisin sauce", "fish sauce", "oyster sauce", 
+        "salsa", "guacamole", "tzatziki", "ranch dressing", "caesar dressing", "vinaigrette", 
+        "bolognese sauce", "carbonara sauce", "buffalo sauce", "worcestershire sauce", "ponzu sauce", 
+        "thai peanut sauce", "mole sauce", "sambal", "harissa", "chutney", "curry sauce", 
+        "satay sauce", "gravy", "demi-glace", "bechamel sauce", "veloute sauce", "espelette pepper sauce", 
+        "romesco sauce", "gremolata", "remoulade", "szechuan sauce", "duck sauce", "sweet and sour sauce", 
+        "plum sauce", "tahini sauce", "tzatziki", "kimchi", "gochujang", "xo sauce", "vinegar"
+    ],
+    
+    "carbs": [
+        "rice", "quinoa", "bread", "flour", "pasta", "noodles", "couscous", "barley", 
+        "oats", "corn", "cornmeal", "polenta", "potatoes", "sweet potatoes", "yams", 
+        "beans", "lentils", "chickpeas", "peas", "tortillas", "bagels", "pita bread", 
+        "rye bread", "sourdough bread", "whole wheat bread", "muffins", "pancakes", 
+        "waffles", "crackers", "biscuits", "croissants", "granola", "muesli", "buckwheat", 
+        "bulgur", "farro", "millet", "amaranth", "soba noodles", "udon noodles", "ramen", 
+        "rice noodles", "spaghetti", "macaroni", "fettuccine", "penne", "lasagna", "gnocchi", 
+        "dumplings", "popcorn", "pretzels", "tapioca", "rice cakes", "matzo", "cornbread", 
+        "scones", "baguette", "ciabatta", "naan", "focaccia", "pizza dough", "rye", "teff", 
+        "tagliatelle", "linguine", "rigatoni", "orzo", "vermicelli", "angel hair", "pappardelle", 
+        "rotini", "ziti", "cavatappi", "tortellini", "ravioli", "cannelloni", "farfalle"
+    ],
+    
+    "oils": [
+        "vegetable oil", "olive oil", "coconut oil", "sesame oil", "canola oil", "peanut oil", 
+        "sunflower oil", "corn oil", "grapeseed oil", "avocado oil", "walnut oil", "almond oil", 
+        "hazelnut oil", "palm oil", "soybean oil", "flaxseed oil", "pumpkin seed oil", "safflower oil", 
+        "truffle oil", "rice bran oil", "cottonseed oil", "mustard oil", "macadamia oil", "pistachio oil"
+    ],
+    
+    "sweeteners": [
+        "sugar", "honey", "maple syrup", "agave nectar", "molasses", "corn syrup", "coconut sugar", 
+        "brown sugar", "confectioners sugar", "stevia", "sucralose", "aspartame", "saccharin", 
+        "sucrose", "sorbitol", "xylitol", "erythritol", "monk fruit", "date sugar", "barley malt syrup", 
+        "brown rice syrup", "cane sugar", "caramel", "carob syrup", "evaporated cane juice", "fructose", 
+        "fruit juice concentrate", "glucose", "high fructose corn syrup", "invert sugar", "lactose", 
+        "maltodextrin", "maltose", "mannitol", "refiner's syrup", "treacle", "turbinado sugar"
+    ],
+    
+    "vegan_protein": [
+        "tofu", "tempeh", "seitan", "portabello mushroom"
+    ],
+    
+    "vegan_milk": [
+        "almond milk", "soy milk", "oat milk", "coconut milk", "rice milk", "cashew milk", "hemp milk"
+    ],
+    
+    "vegan_yogurt": [
+        "soy yogurt", "coconut yogurt", "almond yogurt", "cashew yogurt"
+    ],
+    
+    "vegan_cream": [
+        "coconut cream", "cashew cream", "soy cream"
+    ],
+    
+    "vegan_cheese": [
+        "nutritional yeast", "vegan cheese", "vegan parmesan", "vegan mozzarella", "vegan cheddar"
+    ],
+    
+    "vegan_butter": [
+        "vegan butter", "vegan margarine", "coconut oil"
+    ],
+    
+    "pareve_proteins": [
+    "tofu", "tempeh", "seitan", "lentils", "chickpeas", "beans", "quinoa", 
+    "nuts", "seeds", "edamame", "peas", "textured vegetable protein", "soy protein", 
+    "mushrooms", "eggplant", "green beans", "almonds", "walnuts", "cashews", 
+    "sunflower seeds", "pumpkin seeds", "hemp seeds", "chia seeds", "flaxseeds", 
+    "spirulina", "nutritional yeast", "soy nuts", "soy milk", "almond milk", 
+    "rice milk", "hemp milk", "oat milk", "pea protein",
+    "salmon", "tuna", "trout", "cod", "haddock", "halibut", "flounder", "tilapia",
+    "carp", "mackerel", "snapper", "sardines", "bass"
+    ], 
+    
+    "south_asian_spices": [
+        "cumin seeds", "coriander seeds", "turmeric", "garam masala", "cardamom pods", 
+        "cinnamon sticks", "cloves", "mustard seeds", "fenugreek seeds", "asafoetida (hing)", 
+        "black pepper", "green cardamom", "black cardamom", "nutmeg", "mace", 
+        "bay leaves", "saffron", "fennel seeds", "star anise", "red chili powder", 
+        "kashmiri chili powder", "amchur (dried mango powder)", "tamarind", "ajwain (carom seeds)", 
+        "pomegranate seeds (anardana)", "kalonji (nigella seeds)", "sichuan pepper", "curry leaves", 
+        "kaffir lime leaves", "dried red chilies", "white pepper", "black salt (kala namak)", 
+        "chaat masala", "kasuri methi (dried fenugreek leaves)"
+    ],
+    
+    "south_asian_sauces": [
+        "tamarind chutney", "mint chutney", "coriander chutney", "raita", "tomato chutney", 
+        "coconut chutney", "mango chutney", "yogurt sauce", "korma sauce", "masala sauce", 
+        "vindaloo sauce", "rogan josh sauce", "tikka masala sauce", "makhani sauce", "kadai sauce", 
+        "saag sauce", "dal makhani sauce", "achari sauce", "biryani sauce", "goan curry sauce",
+        "pickle (achar)", "ghee", "curry paste"
+    ],
+    
+    "south_asian_protein": [
+        "chicken", "mutton", "lamb", "ilish", "rohu", "bhakura", "shrimp", "lentils", "chickpeas", "paneer", "yogurt", "tofu"
+    ],
+    
+    "south_asian_vegetable": [
+        "potato", "onion", "garlic", "ginger", "tomato", "cauliflower", "eggplant (brinjal)",
+        "spinach", "okra (bhindi)", "cabbage", "peas", "carrot", "bell pepper (capsicum)",
+        "green beans", "bitter gourd (karela)", "bottle gourd (lauki)", "ridge gourd (turai)",
+        "pumpkin", "fenugreek leaves (methi)", "radish", "cucumber", "beetroot",
+        "turnip", "sweet potato", "chilli pepper", "mustard greens (sarson)", "amla", "yam",
+        "taro root (arbi)", "plantain", "ivy gourd (tindora)", "cluster beans (gavar)", "colocasia leaves"
+        ], 
+    
+    "south_asian_carb": [
+        "basmati rice", "roti", "naan", "chapati", "paratha", "puri", "dosa", "idli", "upma", "poha", "sevai", "biryani", "pulao"
+    ],
+    
+    "south_asian_dairy": [
+        "ghee", "yogurt", "paneer"
+    ],
+    
+    "south_asian_sweetener": [
+        "sugar", "jaggery", "honey"
+    ],
+    
+    "keto_carb_substitute:":[
+        "almond flour", "cauliflower rice", "zucchini noodles"
+    ],
+    
+    "keto_swetener": [
+        "stevia", "erythritol", "xylitol"
+    ],
+    
+    "chinese_spices": [
+        "five-spice powder", "star anise", "sichuan peppercorns", "cinnamon", "cloves", 
+    "fennel seeds", "ginger", "garlic", "green onion", "dried chili peppers", "black pepper", 
+    "white pepper", "cumin", "coriander", "cardamom", "turmeric", "nutmeg", 
+    "bay leaves", "sesame seeds", "dried orange peel", "fenugreek", "anise", 
+    "licorice root", "galangal", "lemongrass", "black cardamom", "red yeast rice", "star anise",
+    ], 
+    
+    "chinese_sauce":[
+        "soy sauce", "hoisin sauce", "oyster sauce", "fish sauce", "sesame oil", 
+    "rice vinegar", "black vinegar", "chili oil", "chili sauce", "bean paste", 
+    "doubanjiang (spicy bean paste)", "tianmianjiang (sweet bean sauce)", "plum sauce", 
+    "sweet and sour sauce", "xo sauce", "light soy sauce", "dark soy sauce", 
+    "shaoxing wine", "rice wine", "fermented black bean sauce", "chinese mustard", 
+    "szechuan sauce", "garlic sauce", "ginger sauce"
+    ], 
+    
+    "chinese_vegetable": [
+        "bok choy", "napa cabbage", "chinese broccoli (gai lan)", "chinese eggplant", 
+    "chinese spinach", "snow peas", "water chestnuts", "bamboo shoots", "lotus root", 
+    "bean sprouts", "mung bean sprouts", "shiitake mushrooms", "wood ear mushrooms", 
+    "enoki mushrooms", "bitter melon", "daikon radish", "chinese long beans", 
+    "chinese chives", "garlic scapes", "chinese mustard greens", "yu choy", 
+    "baby bok choy", "taro", "edamame", "ginger", "garlic", "green onion (scallion)", 
+    "chinese yam", "jicama", "water spinach", "pea shoots", "chinese okra (silk gourd)", 
+    "radish", "tomato", "cucumber", "bell pepper", "hot peppers", "zucchini"
     ]
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 

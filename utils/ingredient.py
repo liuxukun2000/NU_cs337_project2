@@ -36,6 +36,7 @@ class RecipeIngredient():
         quantity = None
         prep = None
         descriptor = None
+        alt = None
         
         # Split by comma
         ing = ing.split(',')[0]
@@ -76,8 +77,13 @@ class RecipeIngredient():
                         descriptor += child.text + ' '
             
                 name += token.text
-            elif token.dep == 'ROOT' and token.pos_ == 'VERB':
-                prep += token.text
+            elif token.dep_ == 'ROOT' and token.pos_ == 'VERB':
+                # check for adverbs 
+                for child in token.children:
+                    if child.dep_ == 'advmod':
+                        prep += child.text + ' '
+                        
+                prep += token.text + ' '
                 # check for conjunctions
                 for child in token.children:
                     if child.dep_ == 'conj' or child.dep_ == 'cc':
@@ -92,7 +98,18 @@ class RecipeIngredient():
                 prep = prep.strip()
     
         # Find the type of the ingredient
+        found = False
+        for key,value in INGREDIENTS.items():
+            
+            if name in value:
+                types.append(key)
+                found = True
         
+        if not found:
+            types.append('other')
+            
+        
+        return RecipeIngredient(name, quantity, unit, prep, descriptor, types, alt)
                 
         
     @staticmethod
@@ -157,5 +174,7 @@ class RecipeIngredient():
         
         return ing
         
-        
+if __name__ == "__main__":
+    ing = RecipeIngredient.from_string("2 tablespoons finely chopped Italian parsley")
+    print(ing)
     
