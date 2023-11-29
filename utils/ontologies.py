@@ -2,9 +2,10 @@
 PRIMARY_COOKING_METHODS = ['bake', 'steam', 'grill', 'roast', 'boil', 'fry', 'barbeque', 'baste', 'broil', 'poach', 'freeze', 'cure', 'saute', 'cook']
 
 SECONDARY_COOKING_METHODS = ['pour', 'toast','topped','combine','chop', 'grate', 'serve','cut', 'shake', 'mince', 'stir', 'mix', 'crush', 'squeeze', 'beat', 'blend', 'caramelize', 'dice', 'dust',
-                             'glaze', 'knead', 'pare', 'shred', 'toss', 'whip', 'sprinkle', 'grease', 'arrange', 'microwave', 'coat', 'turning','preheat', 
+                             'glaze', 'knead', 'pare', 'shred', 'toss', 'whip', 'sprinkle', 'grease', 'arrange', 'microwave', 'coat', 'turning','preheat', "drizzle", "sprinkle"
                              'broil', 'marinate', 'brushing', 'slice', 'season', 'whisk', 'heat', 'drain', 'stirring']
 
+TEMPERATURE = ['degrees', 'degree', 'fahrenheit', 'celsius', 'f', 'c',"heat", "lukewarm", "warm", "hot", "boiling", "cool", "cold", "freezing", "room temperature", "room temp"]
 
 COOKING_MEASUREMENTS = [
     'bunch', 'bunches', 'clove', 'cloves', 'coffeespoon', 'coffeespoons', 'cup', 'cups',

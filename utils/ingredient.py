@@ -14,6 +14,7 @@ class RecipeIngredient():
         self.descriptor = descriptor if descriptor != '' else None
         self.types = types
         self.alt = alt
+        self.steps = []
 
     def __str__(self):
         return f"{self.quantity} {self.unit} {self.name}"
@@ -26,6 +27,9 @@ class RecipeIngredient():
     
     def __hash__(self):
         return hash((self.name, self.quantity, self.unit))
+    
+    def add_step(self, step):
+        self.steps.append(step)
     
     @staticmethod
     def from_string(ing):
