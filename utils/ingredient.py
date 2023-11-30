@@ -31,7 +31,7 @@ class RecipeIngredient:
     def __hash__(self):
         return hash((self.name, self.quantity, self.unit))
     
-    def add_step(self, step):
+    def add_step(self, step: int):
         self.steps.append(step)
     
     @staticmethod
