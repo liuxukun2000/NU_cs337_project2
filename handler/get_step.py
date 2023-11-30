@@ -1,5 +1,5 @@
 import re
-from scrapper.tool_method_information import Tool_Method_Info_Spider
+
 from handler.base import BaseHandler
 
 

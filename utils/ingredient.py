@@ -1,11 +1,11 @@
 import re
 from nltk import pos_tag, word_tokenize
 import spacy
-from ontologies import *
+from utils.ontologies import *
 
 nlp = spacy.load('en_core_web_sm')
 
-class RecipeIngredient():
+class RecipeIngredient:
     def __init__(self, name, quantity, unit, prep, descriptor, types, alt=None):
         self.name = name
         self.quantity = quantity
@@ -28,7 +28,7 @@ class RecipeIngredient():
         return hash((self.name, self.quantity, self.unit))
     
     @staticmethod
-    def from_string(ing):
+    def from_string(ing) -> "RecipeIngredient":
         ing = RecipeIngredient.preprocess(ing)
         
         unit = None
