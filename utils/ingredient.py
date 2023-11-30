@@ -7,13 +7,14 @@ nlp = spacy.load('en_core_web_sm')
 
 class RecipeIngredient:
     def __init__(self, name, quantity, unit, prep, descriptor, types, alt=None):
-        self.name = name
+        self.name = name if name != '' else None
         self.quantity = quantity
-        self.unit = unit
-        self.prep = prep
-        self.descriptor = descriptor
+        self.unit = unit if unit != '' else None
+        self.prep = prep if prep != '' else None
+        self.descriptor = descriptor if descriptor != '' else None
         self.types = types
         self.alt = alt
+        self.steps = []
 
     def __str__(self):
         return f"{self.quantity} {self.unit} {self.name}"
@@ -27,27 +28,37 @@ class RecipeIngredient:
     def __hash__(self):
         return hash((self.name, self.quantity, self.unit))
     
+    def add_step(self, step):
+        self.steps.append(step)
+    
     @staticmethod
     def from_string(ing) -> "RecipeIngredient":
         ing = RecipeIngredient.preprocess(ing)
         
         unit = None
-        name = None
         quantity = None
-        prep = None
-        descriptor = None
+        alt = None
         
-        # Split by comma
-        ing = ing.split(',')[0]
+        name = ''
+        descriptor = ''
+        prep = ''
+        types = []
+        
+
         
         # Handle alternatives
-        if 'or' in ing:
-            ing = ing.split('or')[0]
-            alt = RecipeIngredient.from_string(ing.split('or')[1])
+        if ' or ' in ing:
+            alt = RecipeIngredient.from_string(ing.split(' or ')[1])
+            ing = ing.split(' or ')[0]
+            ing = ing.strip()
+
         
         second = None
         if len(ing.split(','))> 1:
+            
             second = ing.split(',')[1]
+            # Split by comma
+            ing = ing.split(',')[0]
 
         # Find the quantity and unit of the ingredient from ing
         doc = nlp(ing)
@@ -62,10 +73,13 @@ class RecipeIngredient:
             quantity = None
             unit = None
         
-        name = ''
-        descriptor = ''
-        prep = ''
-        types = []
+
+        
+        if quantity and unit: 
+            doc = nlp(doc[2:].text)
+        elif quantity:
+            doc = nlp(doc[1:].text)
+            
         # Find the name of the ingredient from ing, as well as any preprocessing and descriptors in the first part of the ingredient
         for token in doc:
             if (token.dep_ in ['nsubj', 'dobj', 'ROOT']) and (token.pos_ in ['NOUN', 'PROPN']) and (token.text not in COOKING_MEASUREMENTS):
@@ -76,8 +90,13 @@ class RecipeIngredient:
                         descriptor += child.text + ' '
             
                 name += token.text
-            elif token.dep == 'ROOT' and token.pos_ == 'VERB':
-                prep += token.text
+            elif token.dep_ == 'ROOT' and token.pos_ == 'VERB':
+                # check for adverbs 
+                for child in token.children:
+                    if child.dep_ == 'advmod':
+                        prep += child.text + ' '
+                        
+                prep += token.text + ' '
                 # check for conjunctions
                 for child in token.children:
                     if child.dep_ == 'conj' or child.dep_ == 'cc':
@@ -92,7 +111,30 @@ class RecipeIngredient:
                 prep = prep.strip()
     
         # Find the type of the ingredient
+        found = False
+        for key,value in INGREDIENTS.items():
+            
+            if name in value:
+                types.append(key)
+                found = True
         
+        if not found:
+            # go through to see if the dictionary ingredients match part of the parsed ingredient name
+            # find the first match
+            for key,value in INGREDIENTS.items():
+                for v in value:
+                    if v in name:
+                        types.append(key)
+                        found = True
+                        break
+                if found:
+                    break
+        
+        if not found: 
+            types.append('other')
+            
+        
+        return RecipeIngredient(name, quantity, unit, prep, descriptor, types, alt)
                 
         
     @staticmethod
@@ -157,5 +199,8 @@ class RecipeIngredient:
         
         return ing
         
-        
+if __name__ == "__main__":
+    ing = RecipeIngredient.from_string("2 tablespoons finely chopped and diced Italian parsley")
+    ing2 = RecipeIngredient.from_string("3 pecorino Romano cheese, grated, plus more for serving")
+    print(ing)
     
