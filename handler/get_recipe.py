@@ -1,4 +1,5 @@
 import re
+from copy import deepcopy
 from typing import List
 
 from handler.base import BaseHandler
@@ -13,6 +14,7 @@ def find_url(inp: str) -> List[str]:
 class GetRecipeHandler(BaseHandler):
     def __init__(self):
         self.recipe = None
+        self.ori_recipe = None
         self.url = None
 
     @staticmethod
@@ -38,6 +40,7 @@ class GetRecipeHandler(BaseHandler):
         self.url = url[0]
         try:
             self.recipe = spider.get(self.url)
+            self.ori_recipe = deepcopy(self.recipe)
         except Exception as e:
             return f"Sorry, I cannot get this recipe."
         cfg['handler'].append(self)
