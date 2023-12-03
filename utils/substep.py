@@ -124,17 +124,17 @@ class RecipeSubstep:
             for i in range(len(ingredients)):
                 if ingredients[i].name == span.text:
                     index = i
-            ingredients[i].add_step(self.parent_step_number)
+            ingredients[index].add_step(self.parent_step_number)
             step_ingredients.append((span.text,i,(start,end)))
             
         # do a second pass
         for token in doc: 
             index = 0
             for i in range(len(ingredients)):
-                if token.text in ingredients[i].name and token.text not in [item[0] for item in step_ingredients]:
+                if (token.text in ingredients[i].name or ingredients[i].name in token.text) and token.text not in [item[0] for item in step_ingredients]:
                     index = i
             step_ingredients.append((token,i,(token.i,token.i+1)))
-            ingredients[i].add_step(self.parent_step_number)
+            ingredients[index].add_step(self.parent_step_number)
                     
         return step_ingredients
     
