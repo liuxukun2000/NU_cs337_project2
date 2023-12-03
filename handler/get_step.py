@@ -75,7 +75,7 @@ class GetStepHandler(BaseHandler):
             return f"Sorry, there is no more step."
         if self.step < 1:
             return f"Sorry, there is no step before this."
-        return f"Sure. Here is the **Step {self.step}:**\n\n{recipe.steps[self.step - 1]}"
+        return f"Sure. Here is the **Step {self.step}:**\n\n{str(recipe.steps[self.step - 1])}"
 
 
     def clear(self):
