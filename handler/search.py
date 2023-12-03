@@ -16,17 +16,45 @@ class SearchHandler(BaseHandler):
         return 0
 
     def handle(self, inp: str, cfg) -> str:
-        pos = inp.lower().find(" i ")
-        text = inp.lower().strip()
-        if pos == -1:
-            pos = inp.lower().find(" to ")
-            if pos != -1:
-                text = inp[pos + 4:].strip()
+        if 'how' in inp.lower():
+            pos = inp.lower().find(" i ")
+            text = inp.lower().strip()
+            if pos == -1:
+                pos = inp.lower().find(" to ")
+                if pos != -1:
+                    text = inp[pos + 4:].strip()
+            else:
+                pos += 3
+                text = inp[pos:].strip()
+            if pos == -1:
+                return "Sorry, I don't understand."
+            cfg['handler'].append(self)
+            text = ''.join([i for i in text if i.isalpha() or i == ' '])
+            text = text.replace(" ", "+")
+            return f"No worries. I found a YouTube video for you: https://www.youtube.com/results?search_query={text}"
         else:
-            text = inp[pos + 3:].strip()
-        if pos == -1:
-            return "Sorry, I don't understand."
-        cfg['handler'].append(self)
-        text = ''.join([i for i in text if i.isalpha() or i == ' '])
-        text = text.replace(" ", "+")
-        return f"No worries. I found a YouTube video for you: https://www.youtube.com/results?search_query={text}"
+            pos = inp.lower().find("is a")
+            if pos == -1:
+                pos = inp.lower().find("is an")
+                if pos != -1:
+                    pos += 5
+            if pos == -1:
+                pos = inp.lower().find("is the")
+                if pos != -1:
+                    pos += 6
+            if pos == -1:
+                pos = inp.lower().find("is")
+                if pos != -1:
+                    pos += 2
+            if pos == -1:
+                pos = inp.lower().find("are")
+                if pos != -1:
+                    pos += 3
+            if pos == -1:
+                return "Sorry, I don't understand."
+            cfg['handler'].append(self)
+            text = inp[pos:].strip()
+            text = ''.join([i for i in text if i.isalpha() or i == ' '])
+            text = text.replace(" ", "+")
+            return f"No worries. I found a Wikipedia page for you: https://en.wikipedia.org/wiki/{text}"
+

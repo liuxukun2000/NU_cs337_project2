@@ -18,9 +18,8 @@ class DietaryRestrictions(BaseHandler):
         recipe_handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         if not recipe_handler:
             return "Please specify a recipe first."
-        
-        
-        pattern = r'\bis\b.+?vegetarian'
+
+        pattern = r'\bis\b.*?vegetarian'
         vegetarian = True
         non_vegetarian = []
         if bool(re.search(pattern, inp)):

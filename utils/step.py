@@ -21,22 +21,33 @@ class RecipeStep:
     @property
     def processed_text(self):
         text = deepcopy(self.text)
+
         for substep in self.substeps:
             if substep.primary_actions is not None:
                 for action in substep.primary_actions:
+                    if f"**{action[0]}**" in text:
+                        continue
                     text = text.replace(action[0], f'**{action[0]}**')
             if substep.secondary_actions is not None:
                 for action in substep.secondary_actions:
+                    if f"**{action[0]}**" in text:
+                        continue
                     text = text.replace(action[0], f'**{action[0]}**')
 
             if substep.tools is not None:
                 for tool in substep.tools:
+                    if f"**{tool[0]}**" in text:
+                        continue
                     text = text.replace(tool[0], f'**{tool[0]}**')
                     
             # Hopefully takes care of changing the names after transformations
+
             if len(substep.ingredients) > 0:
                 for ing in substep.ingredients:
-                    text = text.replace(ing[0], f'**{ing[0].name}**')
+                    if f"**{ing[0]}**" in text:
+                        continue
+                    text = text.replace(ing[0], f'**{ing[0]}**')
+        text = text.replace("****", "**")
         return text
         
 

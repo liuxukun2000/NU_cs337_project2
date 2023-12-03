@@ -111,7 +111,7 @@ class RecipeSubstep:
     
     def get_ingredients(self, doc: spacy.tokens.doc.Doc, ingredients: list[RecipeIngredient]):
         # String match the ingredients
-        patterns = [nlp.make_doc(ing) for ing in ingredients.keys()]
+        patterns = [nlp.make_doc(ing.name) for ing in ingredients]
         matcher = PhraseMatcher(nlp.vocab)
         matcher.add("ingredients", patterns)
         matches = matcher(doc)
@@ -129,12 +129,15 @@ class RecipeSubstep:
             
         # do a second pass
         for token in doc: 
-            index = 0
+            index = -1
             for i in range(len(ingredients)):
                 if token.text in ingredients[i].name and token.text not in [item[0] for item in step_ingredients]:
+                    if len(token.text) <= 2:
+                        continue
                     index = i
-            step_ingredients.append((token,i,(token.i,token.i+1)))
-            ingredients[i].add_step(self.parent_step_number)
+            if index != -1:
+                step_ingredients.append((token.text,i,(token.i,token.i+1)))
+                ingredients[i].add_step(self.parent_step_number)
                     
         return step_ingredients
     

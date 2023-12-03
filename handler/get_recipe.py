@@ -24,7 +24,7 @@ class GetRecipeHandler(BaseHandler):
     def match(self, inp: str, cfg) -> int:
         if not find_url(inp):
             return 0
-        return 1
+        return 3
 
     def handle(self, inp: str, cfg) -> str:
         if SelectWebHandler().handle(inp, cfg).startswith("Sorry"):

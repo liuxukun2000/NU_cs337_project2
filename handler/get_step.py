@@ -20,6 +20,12 @@ class GetStepHandler(BaseHandler):
             return 2
         if "step" in inp.lower() and "next" in inp.lower():
             return 2
+        if "step" in inp.lower() and "previous" in inp.lower():
+            return 2
+        if "step" in inp.lower() and "back" in inp.lower():
+            return 2
+        if self.get_step_num(inp) != -1:
+            return 2
         return 0
 
     def get_step_num(self, inp: str):
@@ -72,8 +78,10 @@ class GetStepHandler(BaseHandler):
             self.step = user_step
         cfg['handler'].append(self)
         if self.step > len(recipe.steps):
+            self.step = len(recipe.steps)
             return f"Sorry, there is no more step."
         if self.step < 1:
+            self.step = 1
             return f"Sorry, there is no step before this."
         return f"Sure. Here is the **Step {self.step}:**\n\n{str(recipe.steps[self.step - 1])}"
 

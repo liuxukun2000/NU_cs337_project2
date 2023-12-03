@@ -2,6 +2,7 @@ from handler.amount import AmountHandler
 from handler.ask_ingredients import AskIngredientsHandler
 from handler.ask_step import AskStepsHandler
 from handler.continue_handler import ContinueHandler
+from handler.dietary_restrictions import DietaryRestrictions
 from handler.get_ingredient import GetIngredientHandler
 from handler.get_recipe import GetRecipeHandler
 from handler.get_step import GetStepHandler
@@ -28,6 +29,7 @@ class HandlerManager:
             AmountHandler(),
             AskIngredientsHandler(),
             AskStepsHandler(),
+            DietaryRestrictions(),
         ]
         self.default_handler = DefaultHandler()
         self.cfg = dict(handler=[])
@@ -41,7 +43,7 @@ class HandlerManager:
         self.cfg['history'] = self.history
         for h in self.handlers:
             score = h.match(inp, self.cfg)
-            # print(h.type(), score)
+            print(h.type(), score)
             if score >= max_score and score > 0:
                 max_score = score
                 handler = h

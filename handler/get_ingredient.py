@@ -14,7 +14,7 @@ class GetIngredientHandler(BaseHandler):
             if inp.lower().strip().startswith("1"):
                 return 1
         if ("show" in inp.lower() or 'give' in inp.lower()) and "ingredient" in inp.lower():
-            return 1
+            return 3
         return 0
 
     def handle(self, inp: str, cfg) -> str:

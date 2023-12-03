@@ -16,14 +16,14 @@ class AskIngredientsHandler(BaseHandler):
         regex = r"how (many|much) ([\w\s]+)"
         ans = re.search(regex, inp)
         if ans:
-            return ans.group(2)
+            return ans.group(2).replace(" do", "").replace(" i", "").replace("need", "")
         else:
-            return inp
+            return inp.replace(" do", "").replace(" i", "").replace("need", "")
     def match(self, inp: str, cfg) -> int:
         handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         regex = r"how (many|much) "
         if len(handler) and re.findall(regex, inp.lower()):
-            return 1
+            return 2
         return 0
 
     def handle(self, inp: str, cfg) -> str:
@@ -34,6 +34,7 @@ class AskIngredientsHandler(BaseHandler):
 
         cfg['handler'].append(self)
         name = self._get_name(inp)
+        print(name)
         ans = [ingredient for ingredient in recipe.ingredients if ingredient.name in name]
         if not ans:
             for i in name.split():

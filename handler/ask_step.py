@@ -17,7 +17,7 @@ class AskStepsHandler(BaseHandler):
         step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
         if "ingredient" in inp and handler:
             recipe = handler[-1].recipe
-            step = step[-1].step - 1
+            step = step[-1].step - 1 if step else 0
             steps = recipe.steps[step]
             ans = []
             for sub_step in steps.substeps:
@@ -33,7 +33,7 @@ class AskStepsHandler(BaseHandler):
         step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
         if "tool" in inp and handler:
             recipe = handler[-1].recipe
-            step = step[-1].step - 1
+            step = step[-1].step - 1 if step else 0
             steps = recipe.steps[step]
             ans = []
             for sub_step in steps.substeps:
@@ -49,7 +49,7 @@ class AskStepsHandler(BaseHandler):
         step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
         if ("time" in inp or "long" in inp or 'end' in inp or 'duration' in inp) and handler:
             recipe = handler[-1].recipe
-            step = step[-1].step - 1
+            step = step[-1].step - 1 if step else 0
             steps = recipe.steps[step]
             durations, conditions = [], []
             num = 0
@@ -87,7 +87,7 @@ class AskStepsHandler(BaseHandler):
         step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
         if ("temperature" in inp or "heat" in inp or 'hot' in inp) and handler:
             recipe = handler[-1].recipe
-            step = step[-1].step - 1
+            step = step[-1].step - 1 if step else 0
             steps = recipe.steps[step]
             for sub in steps.substeps:
                 if sub.temperature:
@@ -106,7 +106,7 @@ class AskStepsHandler(BaseHandler):
             ans = ans.group(3)
             anss = []
             recipe = handler[-1].recipe
-            step = step[-1].step - 1
+            step = step[-1].step - 1 if step else 0
             steps = recipe.steps[step]
             for sub in steps.substeps:
                 if sub.primary_actions:
@@ -136,7 +136,7 @@ class AskStepsHandler(BaseHandler):
         step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
         if ("action" in inp or " do " in inp or 'step' in inp) and handler:
             recipe = handler[-1].recipe
-            step = step[-1].step - 1
+            step = step[-1].step - 1 if step else 0
             steps = recipe.steps[step]
             ans = []
             for sub in steps.substeps:
