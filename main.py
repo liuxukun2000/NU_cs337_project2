@@ -5,6 +5,5 @@ from utils.ingredient import RecipeIngredient
 if __name__ == "__main__":
     # HandlerManager().run()
     x = AllrecipesSpider.get("https://www.allrecipes.com/recipe/230904/hearty-barley-turkey-soup/")
-    for i in x.ingredients:
+    for i in x.steps:
         print(i)
-        print(RecipeIngredient.from_string(i))

@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from utils.ingredient import RecipeIngredient
+from utils.step import RecipeStep
 from utils.utils import get_servings
 
 
@@ -12,7 +13,7 @@ class BonappetitSpider(BaseSpider):
     def __init__(self, title: str, ingredients: List[str], steps: List[str], servings: int = -1):
         self.title = title.strip(" \n")
         self.ingredients = [RecipeIngredient.from_string(item) for item in ingredients if item]
-        self.steps = [item for item in steps if item]
+        self.steps = [RecipeStep.from_string(item) for item in steps if item]
         self.servings = servings
 
     @staticmethod

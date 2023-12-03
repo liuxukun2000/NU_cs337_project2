@@ -1,4 +1,5 @@
 from handler.amount import AmountHandler
+from handler.ask_ingredients import AskIngredientsHandler
 from handler.continue_handler import ContinueHandler
 from handler.get_ingredient import GetIngredientHandler
 from handler.get_recipe import GetRecipeHandler
@@ -24,6 +25,7 @@ class HandlerManager:
             RepeatHandler(),
             NumberHandler(),
             AmountHandler(),
+            AskIngredientsHandler(),
         ]
         self.default_handler = DefaultHandler()
         self.cfg = dict(handler=[])

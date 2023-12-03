@@ -1,15 +1,15 @@
 import re
 from nltk import pos_tag, word_tokenize
 import spacy
-from ontologies import *
+from utils.ontologies import *
 from typing import Dict
-from ingredient import RecipeIngredient
+from utils.ingredient import RecipeIngredient
 from spacy.matcher import Matcher
-from step import RecipeStep
+# from utils.step import RecipeStep
 
 nlp = spacy.load('en_core_web_sm')
 
-class RecipeSubstep(RecipeStep):
+class RecipeSubstep:
     def __init__(self, doc, recipe_ingredients, actions, parent_step_number):
         self.text = doc.text
         self.parent_step_number = parent_step_number
