@@ -28,6 +28,7 @@ class RecipeSubstep:
         for ing in self.ingredients:
             if name in ing[0].name:
                 return ing[0]
+            
     def add_additional_info(self, info):
         self.additional_info = info
 
@@ -108,7 +109,7 @@ class RecipeSubstep:
                     
         return duration, end_condition
     
-    def get_ingredients(self, doc: spacy.tokens.doc.Doc, ingredients: Dict[str, RecipeIngredient]):
+    def get_ingredients(self, doc: spacy.tokens.doc.Doc, ingredients: list[RecipeIngredient]):
         # String match the ingredients
         patterns = [nlp.make_doc(ing) for ing in ingredients.keys()]
         matcher = PhraseMatcher(nlp.vocab)
@@ -119,15 +120,21 @@ class RecipeSubstep:
         
         for match_id, start, end in matches:
             span = doc[start:end]
-            ingredients[span.text].add_step(self.parent_step_number)
-            step_ingredients.append((ingredients[span.text].name,start))
+            index = 0
+            for i in range(len(ingredients)):
+                if ingredients[i].name == span.text:
+                    index = i
+            ingredients[i].add_step(self.parent_step_number)
+            step_ingredients.append((span.text,i,(start,end)))
             
         # do a second pass
         for token in doc: 
-            for ing in ingredients.keys():
-                if token.text in ing and token.text not in [item[0] for item in step_ingredients]:
-                    step_ingredients.append((ingredients[ing].name,token.i))
-                    ingredients[ing].add_step(self.parent_step_number)
+            index = 0
+            for i in range(len(ingredients)):
+                if token.text in ingredients[i].name and token.text not in [item[0] for item in step_ingredients]:
+                    index = i
+            step_ingredients.append((token,i,(token.i,token.i+1)))
+            ingredients[i].add_step(self.parent_step_number)
                     
         return step_ingredients
     
