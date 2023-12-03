@@ -18,8 +18,8 @@ class GetStepHandler(BaseHandler):
                 return 2
         if ("show" in inp.lower() or 'give' in inp.lower()) and "step" in inp.lower():
             return 2
-        if "step" in inp.lower():
-            return 1
+        if "step" in inp.lower() and "next" in inp.lower():
+            return 2
         return 0
 
     def get_step_num(self, inp: str):

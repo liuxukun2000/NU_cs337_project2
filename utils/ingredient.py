@@ -1,6 +1,6 @@
 import re
 import spacy
-from ontologies import *
+from utils.ontologies import *
 
 nlp = spacy.load('en_core_web_sm')
 
