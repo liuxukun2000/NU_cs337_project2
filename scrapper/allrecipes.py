@@ -1,17 +1,17 @@
 from typing import List
 
+from utils.ingredient import RecipeIngredient
+from utils.utils import get_servings
 from scrapper.base import BaseSpider
 import requests
 from bs4 import BeautifulSoup
 
 class AllrecipesSpider(BaseSpider):
-    def __init__(self, title: str, ingredients: List[str], steps: List[str]):
+    def __init__(self, title: str, ingredients: List[str], steps: List[str], servings: int = -1):
         self.title = title.strip(" \n")
-        self.ingredients = [item for item in ingredients if item]
+        self.ingredients = [RecipeIngredient.from_string(item) for item in ingredients if item]
         self.steps = [item for item in steps if item]
-
-    def __str__(self):
-        return f"**{self.title}**\n\n**Ingredients:**\n\n" + "\n\n".join(self.ingredients) + "\n\n**Steps:**\n\n" + "\n\n".join(self.steps)
+        self.servings = servings
 
     @staticmethod
     def name() -> str:
@@ -22,14 +22,17 @@ class AllrecipesSpider(BaseSpider):
         response = requests.get(url).text
         soup = BeautifulSoup(response, "html.parser")
         title = soup.select_one("#article-heading_1-0").text
-        ingredients = soup.select_one("#mntl-structured-ingredients_1-0 > ul")
-        ingredients = [ingredient.text.strip(" \n") for ingredient in ingredients.children if ingredient != "\n"]
+        ingredients_list = soup.select("#mntl-structured-ingredients_1-0 > ul")
+        ingredients = []
+        for item in ingredients_list:
+            ingredients.extend([ingredient.text.strip(" \n") for ingredient in item.children if ingredient != "\n"])
         steps = soup.select_one("#mntl-sc-block_2-0")
         steps = [step.text.strip(" \n") for step in steps.children if step != "\n"]
-        return AllrecipesSpider(title, ingredients, steps)
+        servings = soup.select_one("#recipe-details_1-0 > div.mntl-recipe-details__content > div:nth-child(4) > div.mntl-recipe-details__value").text
+        return AllrecipesSpider(title, ingredients, steps, get_servings(servings))
 
 if __name__ == "__main__":
-    x = AllrecipesSpider.get("https://www.allrecipes.com/recipe/234860/butternut-squash-lasagna/")
+    x = AllrecipesSpider.get("https://www.allrecipes.com/recipe/230904/hearty-barley-turkey-soup/")
     print(x)
 
 

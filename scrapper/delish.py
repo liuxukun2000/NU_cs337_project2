@@ -1,17 +1,18 @@
+
 from typing import List
 from lxml import etree
 from scrapper.base import BaseSpider
 import requests
-from bs4 import BeautifulSoup
+
+from utils.ingredient import RecipeIngredient
+from utils.utils import get_servings
 
 class DelishSpider(BaseSpider):
-    def __init__(self, title: str, ingredients: List[str], steps: List[str]):
+    def __init__(self, title: str, ingredients: List[str], steps: List[str], servings: int = -1):
         self.title = title.strip(" \n")
-        self.ingredients = [item for item in ingredients if item]
+        self.ingredients = [RecipeIngredient.from_string(item) for item in ingredients if item]
         self.steps = [item for item in steps if item]
-
-    def __str__(self):
-        return f"{self.title}\n\nIngredients:\n" + "\n".join(self.ingredients) + "\n\nSteps:\n" + "\n".join(self.steps)
+        self.servings = servings
 
     @staticmethod
     def name() -> str:
@@ -32,7 +33,10 @@ class DelishSpider(BaseSpider):
         steps = []
         for i in _steps:
             steps.append(''.join(i.itertext()).strip().replace("css-13o7eu2{display:block;}", ""))
-        return DelishSpider(title, ingredients, steps)
+        servings = tree.xpath("/html/body/div[1]/div[1]/main/div[3]/div[1]/div[2]/dl/div[1]/dd/span[1]")[0]
+        servings = ''.join(servings.itertext()).strip()
+        # print(servings)
+        return DelishSpider(title, ingredients, steps, get_servings(servings))
 
 if __name__ == "__main__":
     x = DelishSpider.get("https://www.delish.com/holiday-recipes/thanksgiving/a29178578/how-to-dry-brine-turkey-recipe/")

@@ -1,4 +1,5 @@
 import re
+from copy import deepcopy
 from typing import List
 
 from handler.base import BaseHandler
@@ -13,6 +14,8 @@ def find_url(inp: str) -> List[str]:
 class GetRecipeHandler(BaseHandler):
     def __init__(self):
         self.recipe = None
+        self.ori_recipe = None
+        self.url = None
 
     @staticmethod
     def type() -> str:
@@ -24,20 +27,20 @@ class GetRecipeHandler(BaseHandler):
         return 1
 
     def handle(self, inp: str, cfg) -> str:
+        if SelectWebHandler().handle(inp, cfg).startswith("Sorry"):
+            return "It seems that I don't support this website. Please try another one."
         select_handler = [handler for handler in cfg['handler'] if handler.type() == "select_web"]
         if not select_handler:
-            if SelectWebHandler().handle(inp, cfg).startswith("Sorry"):
-                return "It seems that I don't support this website. Please try another one."
-            else:
-                select_handler = cfg['handler']
-        select_handler = select_handler[-1]
+            return "It seems that I don't support this website. Please try another one."
+        select_handler = cfg['handler'][-1]
         spider = select_handler.spider
         url = find_url(inp)
         if len(url) > 1:
             return "Sorry, I don't support multiple URLs."
-        url = url[0]
+        self.url = url[0]
         try:
-            self.recipe = spider.get(url)
+            self.recipe = spider.get(self.url)
+            self.ori_recipe = deepcopy(self.recipe)
         except Exception as e:
             return f"Sorry, I cannot get this recipe."
         cfg['handler'].append(self)

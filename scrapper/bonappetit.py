@@ -4,14 +4,16 @@ from scrapper.base import BaseSpider
 import requests
 from bs4 import BeautifulSoup
 
-class BonappetitSpider(BaseSpider):
-    def __init__(self, title: str, ingredients: List[str], steps: List[str]):
-        self.title = title.strip(" \n")
-        self.ingredients = [item for item in ingredients if item]
-        self.steps = [item for item in steps if item]
+from utils.ingredient import RecipeIngredient
+from utils.utils import get_servings
 
-    def __str__(self):
-        return f"{self.title}\n\nIngredients:\n" + "\n".join(self.ingredients) + "\n\nSteps:\n" + "\n".join(self.steps)
+
+class BonappetitSpider(BaseSpider):
+    def __init__(self, title: str, ingredients: List[str], steps: List[str], servings: int = -1):
+        self.title = title.strip(" \n")
+        self.ingredients = [RecipeIngredient.from_string(item) for item in ingredients if item]
+        self.steps = [item for item in steps if item]
+        self.servings = servings
 
     @staticmethod
     def name() -> str:
@@ -42,8 +44,8 @@ class BonappetitSpider(BaseSpider):
                 steps.append(text.strip(" \n"))
             else:
                 steps[-1] += " " + text.strip(" \n")
-
-        return BonappetitSpider(title, ingredients, steps)
+        servings = tree.xpath("/html/body/div[1]/div/main/article/div[2]/div[1]/div[1]/div/div[4]/p")[0].text
+        return BonappetitSpider(title, ingredients, steps, get_servings(servings))
 
 if __name__ == "__main__":
     x = BonappetitSpider.get("https://www.bonappetit.com/recipe/sheet-pan-turkey-and-gravy")
