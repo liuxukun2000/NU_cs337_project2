@@ -1,7 +1,6 @@
 import re
-from nltk import pos_tag, word_tokenize
 import spacy
-from utils.ontologies import *
+from ontologies import *
 
 nlp = spacy.load('en_core_web_sm')
 
@@ -89,9 +88,12 @@ class RecipeIngredient:
                 for child in token.children:
                     if (child not in COOKING_MEASUREMENTS) and (child.dep_ == 'compound'):
                         name += child.text + ' '
-                    elif (child not in COOKING_MEASUREMENTS) and (child.dep_ == 'amod'):
-                        descriptor += child.text + ' '
-            
+                    elif (child not in COOKING_MEASUREMENTS) and (child.dep_ == 'amod') and (child.pos_ != 'VERB'):
+                        for item in child.subtree:
+                            descriptor += item.text + ' '
+                    elif (child not in COOKING_MEASUREMENTS) and (child.dep_ == 'amod') and (child.pos_ == 'VERB'):
+                        for item in child.subtree:
+                            prep += item.text + ' '            
                 name += token.text
             elif token.dep_ == 'ROOT' and token.pos_ == 'VERB':
                 # check for adverbs 
@@ -109,6 +111,7 @@ class RecipeIngredient:
                 
         # Handle the second part of the ingredient
         if second:
+            second = second.strip()
             if second.split(" ")[0] != "or" and second.split(" ")[0] != "plus":
                 prep += ' ' + second
                 prep = prep.strip()
@@ -136,7 +139,7 @@ class RecipeIngredient:
         if not found: 
             types.append('other')
             
-        
+        descriptor = descriptor.strip()
         return RecipeIngredient(name, quantity, unit, prep, descriptor, types, alt)
                 
         

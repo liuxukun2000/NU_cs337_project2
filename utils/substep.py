@@ -1,5 +1,4 @@
 import re
-from nltk import pos_tag, word_tokenize
 import spacy
 from ontologies import *
 from typing import Dict
@@ -84,24 +83,25 @@ class RecipeSubstep():
                 duration.append((ent.text,ent.start))
     
         # Handle the "until" keyword
-        doc = nlp(doc.text.split(',')[0])
-        matcher = Matcher(nlp.vocab)
-        pattern = [{"LOWER": 'until'}]
-        matcher.add("until", [pattern])
-        
-        for match_id, start, end in matcher(doc):
-            end_cond = ''
-            if doc[start].dep_ == "mark":
-                head = doc[start].head
-                for item in head.subtree:
-                    end_cond += item.text + ' '
-                end_condition.append((end_cond.strip(),start))
-                
-            elif doc[start].dep_ == "prep":
-                for item in doc[start].children:
-                    end_cond += item.text + ' '
-                end_condition.append((end_cond.strip(),start))
-                
+        for part in doc.text.split(','):
+            doc = nlp(part)
+            matcher = Matcher(nlp.vocab)
+            pattern = [{"LOWER": 'until'}]
+            matcher.add("until", [pattern])
+            
+            for match_id, start, end in matcher(doc):
+                end_cond = ''
+                if doc[start].dep_ == "mark":
+                    head = doc[start].head
+                    for item in head.subtree:
+                        end_cond += item.text + ' '
+                    end_condition.append((end_cond.strip(),start))
+                    
+                elif doc[start].dep_ == "prep" or doc[start].dep_ == "ROOT":
+                    for item in doc[start].subtree:
+                        end_cond += item.text + ' '
+                    end_condition.append((end_cond.strip(),start))
+                    
         return duration, end_condition
     
     def get_ingredients(self, doc: spacy.tokens.doc.Doc, ingredients: Dict[str, RecipeIngredient]):
@@ -116,13 +116,13 @@ class RecipeSubstep():
         for match_id, start, end in matches:
             span = doc[start:end]
             ingredients[span.text].add_step(self.parent_step_number)
-            step_ingredients.append((ingredients[span.text],start))
+            step_ingredients.append((ingredients[span.text].name,start))
             
         # do a second pass
         for token in doc: 
             for ing in ingredients.keys():
-                if token.text in ing:
-                    step_ingredients.append((ingredients[ing],token.i))
+                if token.text in ing and token.text not in [item[0] for item in step_ingredients]:
+                    step_ingredients.append((ingredients[ing].name,token.i))
                     ingredients[ing].add_step(self.parent_step_number)
                     
         return step_ingredients

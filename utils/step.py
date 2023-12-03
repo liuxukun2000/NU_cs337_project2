@@ -1,5 +1,4 @@
 import re
-from nltk import pos_tag, word_tokenize
 import spacy
 from ontologies import *
 from typing import Dict
@@ -90,6 +89,9 @@ class RecipeStep():
             for token in doc:
                 if token.pos_ == "VERB" and token.dep_ == "ROOT" and (token.tag_ == "VB" or token.tag_ == "VBP"):
                     return True
+        elif doc[0].text in PRIMARY_COOKING_ACTIONS or doc[0].text in SECONDARY_COOKING_ACTIONS:
+            return True
+        
         return False
     
         
@@ -106,12 +108,14 @@ if __name__ == "__main__":
     ingredient_strs = ["Cooking spray, for pan","1 1/2 lb. baby mushrooms", "2 tbsp. butter", "2 cloves garlic, minced", "1/4 c. breadcrumbs", "Kosher salt", "Freshly ground black pepper", "1/4 c. freshly grated Parmesan, plus more for topping",
                        "4 oz. cream cheese, softened", "2 tbsp. freshly chopped parsley, plus more for garnish", "1 tbsp. freshly chopped thyme"]
     
-    ingredient = {}
+    ingredients = {}
     for ing in ingredient_strs:
         ingredient = RecipeIngredient.from_string(ing)
-        
-        
+        ingredients[ingredient.name] = ingredient
     
-    step = RecipeStep.from_string("In a medium skillet over medium heat, melt butter.", {}, 1)
-    step2 = RecipeStep.from_string("Add the onion and cook until soft, 5 minutes.", {}, 2)
+    step = RecipeStep.from_string("Preheat oven to 400°. Grease a baking sheet with cooking spray. Remove stems from mushrooms and finely chop stems. Place mushroom caps on baking sheet.", ingredients, 1)
+    step2 = RecipeStep.from_string("In a medium skillet over medium heat, melt butter. Add chopped mushrooms stems and cook until most of the moisture is out, 5 minutes. Add garlic and cook until fragrant, 1 minute then add breadcrumbs and let toast slightly, 3 minutes. Season with salt and pepper. Remove from heat and let cool slightly.", ingredients, 2)
+    step3 = RecipeStep.from_string("In a large bowl mix together mushroom stem mixture, Parmesan, cream cheese, parsley, and thyme. Season with salt and pepper. Fill mushroom caps with filling and sprinkle with more Parmesan.", ingredients, 3)
+    step4 = RecipeStep.from_string("Bake until mushrooms are tender and filling is golden, 20 minutes.", ingredients, 4)
+    step5 = RecipeStep.from_string("Garnish with parsley and serve.", ingredients, 5)
     print(step)
