@@ -59,7 +59,7 @@ class RecipeStep():
                     substeps.append(RecipeSubstep(doc, ingredients, actions, step_number))
                 else:
                     if len(substeps) > 0:
-                        substeps[-1].add_descriptor(part)
+                        substeps[-1].add_additional_info(part)
                     continue                
        
         return RecipeStep(text, step_number, substeps)
@@ -103,7 +103,14 @@ def split_string_by_multiple_delimiters(string, delimiters):
 if __name__ == "__main__":
     
     # Initialize ingredients
-    ingredient_strs = ["Cooking spray, for pan","1 1/2 lb. baby mushrooms"]
+    ingredient_strs = ["Cooking spray, for pan","1 1/2 lb. baby mushrooms", "2 tbsp. butter", "2 cloves garlic, minced", "1/4 c. breadcrumbs", "Kosher salt", "Freshly ground black pepper", "1/4 c. freshly grated Parmesan, plus more for topping",
+                       "4 oz. cream cheese, softened", "2 tbsp. freshly chopped parsley, plus more for garnish", "1 tbsp. freshly chopped thyme"]
+    
+    ingredient = {}
+    for ing in ingredient_strs:
+        ingredient = RecipeIngredient.from_string(ing)
+        
+        
     
     step = RecipeStep.from_string("In a medium skillet over medium heat, melt butter.", {}, 1)
     step2 = RecipeStep.from_string("Add the onion and cook until soft, 5 minutes.", {}, 2)
