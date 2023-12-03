@@ -1,4 +1,6 @@
 import re
+from copy import deepcopy
+
 from nltk import pos_tag, word_tokenize
 import spacy
 from utils.ontologies import *
@@ -15,10 +17,27 @@ class RecipeStep:
         self.text = text
         self.step_number = step_number
         self.substeps = substeps
+
+
+    @property
+    def processed_text(self):
+        text = deepcopy(self.text)
+        for substep in self.substeps:
+            if substep.primary_actions is not None:
+                for action in substep.primary_actions:
+                    text = text.replace(action[0], f'**{action[0]}**')
+            if substep.secondary_actions is not None:
+                for action in substep.secondary_actions:
+                    text = text.replace(action[0], f'**{action[0]}**')
+
+            if substep.tools is not None:
+                for tool in substep.tools:
+                    text = text.replace(tool[0], f'**{tool[0]}**')
+        return text
         
 
     def __str__(self):
-        return self.text
+        return self.processed_text
     
     @staticmethod
     def from_string(step: str, ingredients: Dict[str, RecipeIngredient], step_number: int):

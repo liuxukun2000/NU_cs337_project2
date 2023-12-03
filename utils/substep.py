@@ -25,6 +25,10 @@ class RecipeSubstep:
 
         self.additional_info = None
 
+    def find_ingredient(self, name):
+        for ing in self.ingredients:
+            if name in ing[0].name:
+                return ing[0]
     def add_additional_info(self, info):
         self.additional_info = info
 

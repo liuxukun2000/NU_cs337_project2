@@ -36,6 +36,7 @@ class RecipeIngredient:
     
     @staticmethod
     def from_string(ing) -> "RecipeIngredient":
+        ing = ing.lower()
         ing = RecipeIngredient.preprocess(ing)
         
         unit = None
