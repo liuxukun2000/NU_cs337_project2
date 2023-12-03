@@ -203,7 +203,7 @@ class RecipeIngredient:
         return ing
         
 if __name__ == "__main__":
-    ing = RecipeIngredient.from_string("2 tablespoons finely chopped and diced Italian parsley")
+    ing = RecipeIngredient.from_string("2 1/2 tablespoons finely chopped and diced Italian parsley")
     ing2 = RecipeIngredient.from_string("3 pecorino Romano cheese, grated, plus more for serving")
     print(ing)
     
