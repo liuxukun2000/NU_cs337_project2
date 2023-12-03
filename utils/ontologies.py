@@ -2,8 +2,8 @@
 PRIMARY_COOKING_ACTIONS = ['bake', 'steam', 'grill', 'roast', 'boil', 'fry', 'sear', 'baste', 'broil', 'poach', 'freeze', 'cure', 'saute', 'cook']
 
 SECONDARY_COOKING_ACTIONS = ['pour', 'toast','topped','combine','chop', 'grate', 'serve','cut', 'shake', 'mince', 'stir', 'mix', 'crush', 'squeeze', 'beat', 'blend', 'caramelize', 'dice', 'dust',
-                             'glaze', 'knead', 'pare', 'shred', 'toss', 'whip', 'sprinkle', 'grease', 'arrange', 'microwave', 'coat', 'turn', 'turning','preheat', "drizzle", "sprinkle", 'flip', 'melt'
-                             'broil', 'marinate', 'brushing', 'slice', 'season', 'whisk', 'heat', 'drain', 'stirring', 'add']
+                             'glaze', 'knead', 'pare', 'shred', 'toss', 'whip', 'sprinkle', 'grease', 'arrange', 'microwave', 'coat', 'turn', 'turning','preheat', "drizzle", "sprinkle", 'flip', 'melt',
+                             'broil', 'marinate', 'brushing', 'slice', 'season', 'whisk', 'heat', 'drain', 'stirring', 'add', "remove", "return", "move", "place", "lay", "put"]
 
 TEMPERATURE = ['degrees', 'degree', 'fahrenheit', 'celsius', 'f', 'c',"heat", "lukewarm", "warm", "hot", "boiling", "cool", "cold", "freezing", "room temperature", "room temp"]
 

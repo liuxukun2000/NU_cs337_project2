@@ -34,8 +34,7 @@ class RecipeStep:
     
     @staticmethod
     def from_string(step: str, ingredients: Dict[str, RecipeIngredient], step_number: int):
-        step = RecipeStep.preprocess(step)
-        step.step.strip()
+        step =  step.strip()
         step = RecipeStep.expand_degrees(step)
         step = step.lower()
         
@@ -54,8 +53,13 @@ class RecipeStep:
                 doc = nlp(sent)
                 isStep = RecipeStep.isStep(doc)
                 if isStep:
-                    substeps.append(RecipeSubstep(doc, ingredients, step_number))
+                    primary_actions, secondary_actions, misc_actions = RecipeSubstep.get_actions(doc)
+                    actions = {'primary': primary_actions, 'secondary': secondary_actions, 'misc': misc_actions}
+                
+                    substeps.append(RecipeSubstep(doc, ingredients, actions, step_number))
                 else:
+                    if len(substeps) > 0:
+                        substeps[-1].add_descriptor(part)
                     continue                
        
         return RecipeStep(text, step_number, substeps)
@@ -80,11 +84,11 @@ class RecipeStep:
     
     @staticmethod
     def isStep(doc):
-        if doc[0].pos_ == "VERB" and doc[0].dep_ == "ROOT" and doc[0].tag_ == "VB":
+        if doc[0].pos_ == "VERB" and (doc[0].dep_ == "ROOT" or doc[0].dep_ == "nsubj") and doc[0].tag_ == "VB":
             return True
         elif doc[0].dep_ == "prep":
             for token in doc:
-                if token.pos_ == "VERB" and doc[0].dep_ == "ROOT" and doc[0].tag_ == "VB":
+                if token.pos_ == "VERB" and token.dep_ == "ROOT" and (token.tag_ == "VB" or token.tag_ == "VBP"):
                     return True
         return False
     
@@ -95,3 +99,12 @@ def split_string_by_multiple_delimiters(string, delimiters):
 
     # Split the string using the created pattern
     return re.split(pattern, string)
+
+if __name__ == "__main__":
+    
+    # Initialize ingredients
+    ingredient_strs = ["Cooking spray, for pan","1 1/2 lb. baby mushrooms"]
+    
+    step = RecipeStep.from_string("In a medium skillet over medium heat, melt butter.", {}, 1)
+    step2 = RecipeStep.from_string("Add the onion and cook until soft, 5 minutes.", {}, 2)
+    print(step)
