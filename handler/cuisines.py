@@ -34,10 +34,14 @@ class Cuisines(BaseHandler):
                                 found = True
                                 break
                         if not found:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["south_asian_protein"])
+                            new = random.choice(INGREDIENTS["south_asian_protein"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["south_asian_protein"]
                     elif type == "milk_and_dairy" or type == "cheese":
-                        recipe.ingredients[i].name = random.choice(INGREDIENTS["south_asian_dairy"])
+                        new = random.choice(INGREDIENTS["south_asian_dairy"])
+                        recipe.transform(recipe.ingredients[i].name, new)
+                        recipe.ingredients[i].name = new
                         recipe.ingredients[i].types = ["south_asian_dairy"]
                     elif type == "herbs_and_spices":
                         found = False
@@ -46,7 +50,9 @@ class Cuisines(BaseHandler):
                                 found = True
                                 break
                         if not found:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["south_asian_spices"])
+                            new = random.choice(INGREDIENTS["south_asian_spices"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["south_asian_spices"]
                     elif type == "sauces":
                         found = False
@@ -55,7 +61,9 @@ class Cuisines(BaseHandler):
                                 found = True
                                 break
                         if not found:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["south_asian_sauces"])
+                            new = random.choice(INGREDIENTS["south_asian_sauces"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["south_asian_sauces"]
                     elif type == "vegetables":
                         found = False
@@ -64,7 +72,9 @@ class Cuisines(BaseHandler):
                                 found = True
                                 break
                         if not found:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["south_asian_vegetable"])
+                            new = random.choice(INGREDIENTS["south_asian_vegetable"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["south_asian_vegetable"]
                     elif type == "carbs":
                         found = False
@@ -73,7 +83,9 @@ class Cuisines(BaseHandler):
                                 found = True
                                 break
                         if not found:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["south_asian_carb"])
+                            new = random.choice(INGREDIENTS["south_asian_carb"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["south_asian_carb"]
                             
             return f"I've made the recipe Indian for you. Here are the ingredients of the Indian version of **{recipe.title}:**\n\n* [x] " + "\n\n* [x] ".join(map(str, recipe.ingredients))
@@ -88,7 +100,7 @@ class Cuisines(BaseHandler):
         ori_recipe = recipe_handler[-1].ori_recipe
         recipe = recipe_handler[-1].recipe
         
-        pattern = r'\b(transform|make)\b.+?indian'
+        pattern = r'\b(transform|make)\b.+?chinese'
         if bool(re.search(pattern, inp)):
             for i in range(len(recipe.ingredients)):
                 ingredient = recipe.ingredients[i]
@@ -100,7 +112,9 @@ class Cuisines(BaseHandler):
                                 found = True
                                 break
                         if not found:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["chinese_spices"])
+                            new = random.choice(INGREDIENTS["chinese_spices"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["chinese_spices"]
                     elif type == "sauces":
                         found = False
@@ -109,7 +123,9 @@ class Cuisines(BaseHandler):
                                 found = True
                                 break
                         if not found:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["chinese_sauce"])
+                            new = random.choice(INGREDIENTS["chinese_sauce"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["chinese_sauce"]
                     elif type == "vegetables":
                         found = False
@@ -118,7 +134,9 @@ class Cuisines(BaseHandler):
                                 found = True
                                 break
                         if not found:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["chinese_vegetable"])
+                            new = random.choice(INGREDIENTS["chinese_vegetable"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["chinese_vegetable"]
                     elif type == "carbs":
                         found = False
@@ -127,7 +145,9 @@ class Cuisines(BaseHandler):
                                 found = True
                                 break
                         if not found:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["chinese_carb"])
+                            new = random.choice(INGREDIENTS["chinese_carb"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["chinese_carb"]
                             
             return f"I've made the recipe Chinese for you. Here are the ingredients of the Indian version of **{recipe.title}:**\n\n* [x] " + "\n\n* [x] ".join(map(str, recipe.ingredients))

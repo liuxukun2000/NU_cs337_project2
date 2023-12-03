@@ -23,6 +23,10 @@ class AskIngredientsHandler(BaseHandler):
         handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         regex = r"how (many|much) "
         if len(handler) and re.findall(regex, inp.lower()):
+            if "long" in inp.lower() or "time" in inp.lower() or "duration" in inp.lower():
+                return 0
+            if "minute" in inp.lower() or "second" in inp.lower() or "hour" in inp.lower():
+                return 0
             return 2
         return 0
 

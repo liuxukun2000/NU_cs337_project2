@@ -13,7 +13,7 @@ nlp = spacy.load('en_core_web_sm')
 
 class RecipeStep:
     def __init__(self, text, step_number, substeps: list[RecipeSubstep]):
-        self.text = text
+        self.text = text.replace(f"step {step_number}", "")
         self.step_number = step_number
         self.substeps = substeps
 
@@ -44,15 +44,32 @@ class RecipeStep:
 
             if len(substep.ingredients) > 0:
                 for ing in substep.ingredients:
-                    if f"**{ing[0]}**" in text:
+                    if f"**{ing[0]}" in text:
                         continue
                     text = text.replace(ing[0], f'**{ing[0]}**')
-        text = text.replace("****", "**")
+        text = text.replace("****", "** **")
         return text
         
 
     def __str__(self):
         return self.processed_text
+
+    def to_string(self):
+        if len(self.substeps) == 0:
+            return f"Step **{self.step_number}** is {self.text}."
+        ans = f"Step **{self.step_number}** have {len(self.substeps)} sub-steps:\n\n"
+        for substep in self.substeps:
+            ans += f"**{substep.text}**:\n\n"
+            ans += f"Primary actions: {[i[0] for i in substep.primary_actions]}\n\n"
+            ans += f"Secondary actions: {[i[0] for i in substep.secondary_actions]}\n\n"
+            ans += f"Ingredients: {[i[0] for i in substep.ingredients]}\n\n"
+            ans += f"Tools: {[i[0] for i in substep.tools]}\n\n"
+            ans += f"Duration: {[i[0] for i in substep.duration]}\n\n"
+            ans += f"End Condition: {[i[0] for i in substep.end_condition]}\n\n"
+            ans += f"Temperature: {[i[0] for i in substep.temperature]}\n\n"
+            ans += f"Additional Info: {substep.additional_info}\n\n"
+            ans += "\n\n"
+        return ans
     
     @staticmethod
     def from_string(step: str, ingredients: list[RecipeIngredient], step_number: int):

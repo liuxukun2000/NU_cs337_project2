@@ -5,6 +5,7 @@ from utils.ingredient import RecipeIngredient
 
 if __name__ == "__main__":
     # HandlerManager().run()
-    x = DelishSpider.get("https://www.delish.com/holiday-recipes/thanksgiving/a29178578/how-to-dry-brine-turkey-recipe/")
-    for i in x.steps:
-        print(i)
+    x = DelishSpider.get("https://www.delish.com/cooking/recipe-ideas/a20089643/easy-stuffed-mushroom-recipe/")
+    print(x)
+    # for i in x.steps:
+    #     print(i)

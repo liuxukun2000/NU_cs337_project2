@@ -221,7 +221,9 @@ class DietaryRestrictions(BaseHandler):
                 for type in ingredient.types:
                     if type == "meat_and_poultry" or type == "seafood":
                         # transform
-                        recipe.ingredients[i].name = random.choice(INGREDIENTS["vegan_protein"])
+                        new = random.choice(INGREDIENTS["vegan_protein"])
+                        recipe.transform(recipe.ingredients[i].name, new)
+                        recipe.ingredients[i].name = new
                         recipe.ingredients[i].types = ["vegan_protein"]
                         recipe.ingredients[i].descriptor = None
                         recipe.ingredients[i].prep = None
@@ -235,29 +237,45 @@ class DietaryRestrictions(BaseHandler):
                 for type in ingredient.types:
                     if type == "meat_and_poultry" or type == "seafood":
                         # transform
-                        recipe.ingredients[i].name = random.choice(INGREDIENTS["vegan_protein"])
+                        new = random.choice(INGREDIENTS["vegetarian_protein"])
+                        recipe.transform(recipe.ingredients[i].name, new)
+                        recipe.ingredients[i].name = new
                         recipe.ingredients[i].types = ["vegan_protein"]
                     elif type == "milk_and_dairy":
                         if "milk" in ingredient.name:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["vegan_milk"])
+                            new = random.choice(INGREDIENTS["vegan_milk"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["vegan_milk"]
                         elif "yogurt" in ingredient.name:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["vegan_yogurt"])
+                            new = random.choice(INGREDIENTS["vegan_yogurt"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["vegan_yogurt"]
                         elif "butter" in ingredient.name:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["vegan_butter"])
+                            new = random.choice(INGREDIENTS["vegan_butter"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["vegan_butter"]
                         elif "cream" in ingredient.name:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["vegan_cream"])
+                            new = random.choice(INGREDIENTS["vegan_cream"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["vegan_cream"]
                         else:
-                            recipe.ingredients[i].name = random.choice(INGREDIENTS["vegan_milk"])
+                            new = random.choice(INGREDIENTS["vegan_cheese"])
+                            recipe.transform(recipe.ingredients[i].name, new)
+                            recipe.ingredients[i].name = new
                             recipe.ingredients[i].types = ["vegan_milk"]
                     elif type == "eggs":
-                        recipe.ingredients[i].name = random.choice(INGREDIENTS["vegan_eggs"])
+                        new = random.choice(INGREDIENTS["vegan_eggs"])
+                        recipe.transform(recipe.ingredients[i].name, new)
+                        recipe.ingredients[i].name = random.choice(new)
                         recipe.ingredients[i].types = ["vegan_eggs"]
                     elif type == "cheese":
-                        recipe.ingredients[i].name = random.choice(INGREDIENTS["vegan_cheese"])
+                        new = random.choice(INGREDIENTS["vegan_cheese"])
+                        recipe.transform(recipe.ingredients[i].name, new)
+                        recipe.ingredients[i].name = new
                         recipe.ingredients[i].types = ["vegan_cheese"]
             
             return f"I've made the recipe vegan for you. Here are the ingredients of the vegan version of **{recipe.title}:**\n\n* [x] " + "\n\n* [x] ".join(map(str, recipe.ingredients))

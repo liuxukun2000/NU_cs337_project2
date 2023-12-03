@@ -39,7 +39,10 @@ class AskStepsHandler(BaseHandler):
             for sub_step in steps.substeps:
                 ans.extend(sub_step.tools)
             ans = [i[0] for i in ans]
-            return f"You need :\n\n" + "\n\n".join(map(str, ans)) + "\n\nfor this step."
+            if ans:
+                return f"You need :\n\n" + "\n\n".join(map(str, ans)) + "\n\nfor this step."
+            else:
+                return "I can't find tools in this step."
         else:
             return "Sorry, I can't find tools in this step."
 
@@ -47,7 +50,7 @@ class AskStepsHandler(BaseHandler):
         inp = inp.lower()
         handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
-        if ("time" in inp or "long" in inp or 'end' in inp or 'duration' in inp) and handler:
+        if ("time" in inp or "long" in inp or 'end' in inp or 'duration' in inp or "when" in inp) and handler:
             recipe = handler[-1].recipe
             step = step[-1].step - 1 if step else 0
             steps = recipe.steps[step]
@@ -85,13 +88,13 @@ class AskStepsHandler(BaseHandler):
         inp = inp.lower()
         handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
-        if ("temperature" in inp or "heat" in inp or 'hot' in inp) and handler:
+        if ("temperature" in inp or " heat" in inp or ' hot' in inp) and handler:
             recipe = handler[-1].recipe
             step = step[-1].step - 1 if step else 0
             steps = recipe.steps[step]
             for sub in steps.substeps:
                 if sub.temperature:
-                    return f"Temperature of this step is: {sub.temperature[0][0]}."
+                    return f"Temperature of this step is: {sub.text}: **{sub.temperature[0][0]}**."
             return "I can't find temperature in this step."
         else:
             return "Sorry, I can't find temperature in this step."
@@ -112,17 +115,19 @@ class AskStepsHandler(BaseHandler):
                 if sub.primary_actions:
                     for i in sub.primary_actions:
                         if i[0] in ans:
-                            if sub.duration:
+                            if sub.duration or sub.end_condition:
                                 anss.append(sub)
+                                break
             print(anss)
             ans = ans.split()
-            res = None
+            res = ""
             for i in anss:
                 if res:
                     break
                 for j in ans:
                     if j in i.text:
-                        res = i.duration[0][0]
+                        res = i.duration[0][0] if i.duration else ""
+                        res += f" or {i.end_condition[0][0]} " if i.end_condition else ""
                         break
             if res:
                 return f"Time of this step is: {res}."

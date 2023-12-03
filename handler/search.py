@@ -3,7 +3,7 @@ from handler.base import BaseHandler
 
 class SearchHandler(BaseHandler):
     def __init__(self):
-        pass
+        self.ask_that = False
 
     @staticmethod
     def type() -> str:
@@ -11,12 +11,48 @@ class SearchHandler(BaseHandler):
 
     def match(self, inp: str, cfg) -> int:
         text = inp.lower().strip()
+        if self.ask_that:
+            return 100
+        if "how" in text and "that" in text:
+            return 3
         if text.startswith("how") or text.startswith("what"):
             return 1
+
         return 0
 
     def handle(self, inp: str, cfg) -> str:
-        if 'how' in inp.lower():
+        if self.ask_that or ('how' in inp.lower() and 'that' in inp.lower()):
+
+            handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
+            step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
+            ans = []
+            if handler:
+                recipe = handler[-1].recipe
+                step = step[-1].step - 1 if step else 0
+                step = recipe.steps[step]
+                for i in step.substeps:
+                    ans.extend(i.primary_actions)
+                if not ans:
+                    for i in step.substeps:
+                        ans.extend(i.secondary_actions)
+                if not ans:
+                    return "Sorry, I can't find actions in this step."
+                if len(ans) > 1 and not self.ask_that:
+                    self.ask_that = True
+                    return "I found multiple actions in this step. Please specify one:\n\n" + "\n\n".join([i[0] for i in ans])
+                if self.ask_that:
+                    for i in ans:
+                        if i[0] in inp or inp in i[0]:
+                            ans = i
+                            break
+                    self.ask_that = False
+                # if isinstance(ans, tuple):
+                #     ans = ans[0]
+                ans = f"https://en.wikipedia.org/wiki/{ans[0]}"
+                return f"No worries. I found a Wikipedia page for you: {ans}"
+            else:
+                return "Please specify a recipe first."
+        elif 'how' in inp.lower():
             pos = inp.lower().find(" i ")
             text = inp.lower().strip()
             if pos == -1:
