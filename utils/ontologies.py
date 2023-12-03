@@ -100,6 +100,22 @@ INGREDIENTS = {
             "sea scallops", "cockles", "geoduck", "razor clams", "welk"
         ],
         
+    "kosher_meat":
+        [
+                'beef', 'chicken', 'turkey', 'lamb', 'duck', 'goose', 'veal',
+                'quail', 'pigeon', 'venison', 'buffalo', 'sausage', 'brisket',
+                'rib', 'steak', 'ground beef', 'ground pork', 'ground turkey',
+                'ground chicken', 'chicken breast', 'chicken thighs', 'chicken wings',
+                'chicken drumsticks', 'lamb chops', 'lamb shank', 'rack of lamb',
+                'corned beef', 'pastrami', 'prosciutto', 'salami', 'pepperoni',
+                'chorizo', 'biltong', 'jerky', 'hot dog', 'frankfurter', 'meatloaf',
+                'meatballs', 'liver', 'kidney', 'heart', 'tongue', 'tripe', 'oxtail',
+                'salmon', 'tuna', 'trout', 'mackerel', 'sardines', 'anchovies', 'herring',
+                'cod', 'haddock', 'halibut', 'flounder', 'sole', 'tilapia', 'catfish',
+                'bass', 'carp', 'mahimahi', 'pollock', 'grouper', 'red snapper', 'barramundi',
+                'caviar', 'roe'
+        ],
+        
     "nuts_and_seeds":
         [
             "almonds", "cashews", "pistachios", "walnuts", "pecans", "macadamia nuts", "pine nuts", 
@@ -192,6 +208,11 @@ INGREDIENTS = {
         "tofu", "tempeh", "seitan", "portabello mushroom"
     ],
     
+    "vegan_egg": ["flaxseed", "chia seed", "applesauce", "mashed banana", "silken tofu",
+        "vinegar and baking soda", "aquafaba", "commercial egg replacers",
+        "vegan yogurt or buttermilk", "arrowroot powder", "nut butter"
+    ],
+    
     "vegan_milk": [
         "almond milk", "soy milk", "oat milk", "coconut milk", "rice milk", "cashew milk", "hemp milk"
     ],
@@ -263,16 +284,16 @@ INGREDIENTS = {
         "ghee", "yogurt", "paneer"
     ],
     
-    "south_asian_sweetener": [
-        "sugar", "jaggery", "honey"
-    ],
-    
     "keto_carb_substitute:":[
         "almond flour", "cauliflower rice", "zucchini noodles"
     ],
     
-    "keto_swetener": [
+    "keto_sweetener": [
         "stevia", "erythritol", "xylitol"
+    ],
+    
+    "chinese_carb":[
+        "jasmine rice", "rice noodle roll", "ho fun", "noodles", "vermicelli", "egg noodles", "wonton wrappers", "dumpling wrappers", "bao"
     ],
     
     "chinese_spices": [

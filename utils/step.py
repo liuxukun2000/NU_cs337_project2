@@ -32,6 +32,11 @@ class RecipeStep:
             if substep.tools is not None:
                 for tool in substep.tools:
                     text = text.replace(tool[0], f'**{tool[0]}**')
+                    
+            # Hopefully takes care of changing the names after transformations
+            if len(substep.ingredients) > 0:
+                for ing in substep.ingredients:
+                    text = text.replace(ing[0], f'**{ing[0].name}**')
         return text
         
 
@@ -39,7 +44,7 @@ class RecipeStep:
         return self.processed_text
     
     @staticmethod
-    def from_string(step: str, ingredients: Dict[str, RecipeIngredient], step_number: int):
+    def from_string(step: str, ingredients: list[RecipeIngredient], step_number: int):
         step =  step.strip()
         step = RecipeStep.expand_degrees(step)
         step = step.lower()
