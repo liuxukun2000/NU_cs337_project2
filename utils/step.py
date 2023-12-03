@@ -1,35 +1,42 @@
 import re
+from copy import deepcopy
+from nltk import pos_tag, word_tokenize
 import spacy
-from ontologies import *
+from utils.ontologies import *
 from typing import Dict
-from ingredient import RecipeIngredient
+from utils.ingredient import RecipeIngredient
 from spacy.matcher import Matcher
-from substep import RecipeSubstep
+from utils.substep import RecipeSubstep
 
 nlp = spacy.load('en_core_web_sm')
 
 
-class RecipeStep():
+class RecipeStep:
     def __init__(self, text, step_number, substeps: list[RecipeSubstep]):
         self.text = text
         self.step_number = step_number
         self.substeps = substeps
+
+
+    @property
+    def processed_text(self):
+        text = deepcopy(self.text)
+        for substep in self.substeps:
+            if substep.primary_actions is not None:
+                for action in substep.primary_actions:
+                    text = text.replace(action[0], f'**{action[0]}**')
+            if substep.secondary_actions is not None:
+                for action in substep.secondary_actions:
+                    text = text.replace(action[0], f'**{action[0]}**')
+
+            if substep.tools is not None:
+                for tool in substep.tools:
+                    text = text.replace(tool[0], f'**{tool[0]}**')
+        return text
         
 
     def __str__(self):
-        return self.text
-
-    def __repr__(self):
-        return f"Step: {self.name}\nDescription: {self.description}\nIngredients: {self.ingredients}\nEquipment: {self.equipment}\nInstructions: {self.instructions}"
-
-    def __eq__(self, other):
-        return self.name == other.name and self.description == other.description and self.ingredients == other.ingredients and self.equipment == other.equipment and self.instructions == other.instructions
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __hash__(self):
-        return hash((self.name, self.description, self.ingredients, self.equipment, self.instructions))
+        return self.processed_text
     
     @staticmethod
     def from_string(step: str, ingredients: Dict[str, RecipeIngredient], step_number: int):

@@ -1,14 +1,14 @@
 import re
 import spacy
-from ontologies import *
+from utils.ontologies import *
 from typing import Dict
-from ingredient import RecipeIngredient
+from utils.ingredient import RecipeIngredient
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 
 nlp = spacy.load('en_core_web_sm')
 
-class RecipeSubstep():
+class RecipeSubstep:
     def __init__(self, doc, recipe_ingredients, actions, parent_step_number):
         self.text = doc.text
         self.parent_step_number = parent_step_number
@@ -21,12 +21,16 @@ class RecipeSubstep():
         self.tools = self.get_tools(doc)
         self.duration, self.end_condition = self.get_duration(doc)
         self.temperature = self.get_temperature(doc)
-        
+
         self.additional_info = None
-    
+
+    def find_ingredient(self, name):
+        for ing in self.ingredients:
+            if name in ing[0].name:
+                return ing[0]
     def add_additional_info(self, info):
         self.additional_info = info
-    
+
     def get_temperature(self, doc: spacy.tokens.doc.Doc):
         temperature = []
         for temp_word in TEMPERATURE:
@@ -47,11 +51,11 @@ class RecipeSubstep():
                             temp = doc[start-1].text + " heat"
                             if start > 2 and doc[start-2].text == "to" and doc[start-3].text == "low" or doc[start-3].text == "medium" or doc[start-3].text == "high":
                                 temp = doc[start-3:end].text
-                        
+
                         for action in reversed(self.secondary_actions):
                             if "heat" in action[0]:
                                 self.secondary_actions.remove(action)
-                    
+
                     elif temp_word == "degrees":
                         if start > 0 and doc[start-1].pos_ == "NUM":
                             temp = doc[start-1].text + " degrees"
@@ -155,6 +159,5 @@ class RecipeSubstep():
                     misc_actions.append((token.text, token.i))
                     
         return primary_actions, secondary_actions, misc_actions
-    
 
-    
+

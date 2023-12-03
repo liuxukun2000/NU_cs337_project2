@@ -13,5 +13,5 @@ class BaseSpider:
         raise NotImplementedError
 
     def __str__(self):
-        return f"**{self.title}**\n\n**Ingredients:**\n\n" + "\n\n".join(self.ingredients) + "\n\n**Steps:**\n\n" + "\n\n".join(self.steps) +\
+        return f"**{self.title}**\n\n**Ingredients:**\n\n" + "\n\n".join(map(str, self.ingredients)) + "\n\n**Steps:**\n\n" + "\n\n".join(map(str, self.steps)) +\
     f"\n\nServings\n\n{self.servings}"
