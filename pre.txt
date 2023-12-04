@@ -22,6 +22,23 @@ What temperature?
 Show me 3rd step.
 How do I do that?
 Scale this serving for 9 people
-Translate this recipe to Chinese
+Is this recipe vegetarian?
+Make this recipe vegetarian.
+Is this recipe vegetarian?
+Transform this recipe to Chinese
 3
 ---------------------------------------
+https://www.delish.com/cooking/recipe-ideas/a20089643/easy-stuffed-mushroom-recipe/
+2
+Which tools do I need?
+Go to the second step.
+Which ingredients do I need?
+How many minutes to cook the mushroom.
+How much time do I need for this step.
+Is this recipe kosher?
+---------------------------------------
+https://www.delish.com/holiday-recipes/thanksgiving/a29178578/how-to-dry-brine-turkey-recipe/
+1
+2
+Transform this recipe to Indian.
+Show me the first step.

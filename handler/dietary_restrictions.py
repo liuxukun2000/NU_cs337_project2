@@ -17,7 +17,7 @@ class DietaryRestrictions(BaseHandler):
         inp = inp.lower()
         recipe_handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         if not recipe_handler:
-            return "Please specify a recipe first."
+            return "Sorry, Please specify a recipe first."
 
         pattern = r'\bis\b.*?vegetarian'
         vegetarian = True
@@ -55,7 +55,7 @@ class DietaryRestrictions(BaseHandler):
         inp = inp.lower()
         recipe_handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         if not recipe_handler:
-            return "Please specify a recipe first."
+            return "Sorry, Please specify a recipe first."
         
         pattern = r'\bis\b.+?kosher'
         kosher = True
@@ -91,7 +91,7 @@ class DietaryRestrictions(BaseHandler):
         inp = inp.lower()
         recipe_handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         if not recipe_handler:
-            return "Please specify a recipe first."
+            return "Sorry, Please specify a recipe first."
         
         pattern = r'\bis\b.+?pescatarian'
         pescatarian = True
@@ -114,7 +114,7 @@ class DietaryRestrictions(BaseHandler):
         inp = inp.lower()
         recipe_handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         if not recipe_handler:
-            return "Please specify a recipe first."
+            return "Sorry, Please specify a recipe first."
         ori_recipe = recipe_handler[-1].ori_recipe
         recipe = recipe_handler[-1].recipe
         
@@ -140,7 +140,7 @@ class DietaryRestrictions(BaseHandler):
         inp = inp.lower()
         recipe_handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         if not recipe_handler:
-            return "Please specify a recipe first."
+            return "Sorry, Please specify a recipe first."
         ori_recipe = recipe_handler[-1].ori_recipe
         recipe = recipe_handler[-1].recipe
         
@@ -162,7 +162,7 @@ class DietaryRestrictions(BaseHandler):
         inp = inp.lower()
         recipe_handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         if not recipe_handler:
-            return "Please specify a recipe first."
+            return "Sorry, Please specify a recipe first."
         ori_recipe = recipe_handler[-1].ori_recipe
         recipe = recipe_handler[-1].recipe
         
@@ -210,7 +210,7 @@ class DietaryRestrictions(BaseHandler):
         inp = inp.lower()
         recipe_handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         if not recipe_handler:
-            return "Please specify a recipe first."
+            return "Sorry, Please specify a recipe first."
         ori_recipe = recipe_handler[-1].ori_recipe
         recipe = recipe_handler[-1].recipe
         
@@ -304,7 +304,7 @@ class DietaryRestrictions(BaseHandler):
     def handle(self, inp: str, cfg) -> str:
         recipe_handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         if not recipe_handler:
-            return "Please specify a recipe first."
+            return "Sorry, Please specify a recipe first."
         cfg['handler'].append(self)
         
         ans = self.ask_is_vegetarian_vegan(inp, cfg)

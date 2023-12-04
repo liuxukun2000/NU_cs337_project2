@@ -13,6 +13,12 @@ class DefaultHandler(BaseHandler):
         return 0
 
     def handle(self, inp: str, cfg) -> str:
+        if inp.strip() == "exit":
+            cfg['handler'] = []
+            for name, handler in cfg.items():
+                if issubclass(type(handler), BaseHandler):
+                    handler.clear()
+            return "Bye!"
         if not len(cfg['handler']):
             return """Hello! I am a recipe bot. I can help you with recipes. I can get recipes from 
 **3** websites: **Delish**, **Allrecipes**, and **Food Network**. Please specify a website first

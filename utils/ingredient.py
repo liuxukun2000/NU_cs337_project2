@@ -20,6 +20,7 @@ class RecipeIngredient:
         ans += f" *{self.unit}*" if self.unit is not None else ""
         ans += f" {self.name}"
         ans += f" ({self.prep})" if self.prep is not None else ""
+        ans += f" [{self.descriptor}]" if self.descriptor is not None else ""
         return ans
 
     def __repr__(self):

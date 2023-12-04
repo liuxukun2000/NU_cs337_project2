@@ -23,6 +23,7 @@ class AskStepsHandler(BaseHandler):
             for sub_step in steps.substeps:
                 ans.extend(sub_step.ingredients)
             ans = [i[0] for i in ans]
+            ans = list(set(ans))
             return f"You need :\n\n" + "\n\n".join(map(str, ans)) + "\n\nfor this step."
         else:
             return "Sorry, I can't find ingredients in this step."
@@ -39,6 +40,7 @@ class AskStepsHandler(BaseHandler):
             for sub_step in steps.substeps:
                 ans.extend(sub_step.tools)
             ans = [i[0] for i in ans]
+            ans = list(set(ans))
             if ans:
                 return f"You need :\n\n" + "\n\n".join(map(str, ans)) + "\n\nfor this step."
             else:
@@ -149,6 +151,7 @@ class AskStepsHandler(BaseHandler):
                 ans.extend(sub.secondary_actions)
                 ans.extend(sub.misc_actions)
             ans = [i[0] for i in ans]
+            ans = list(set(ans))
             return f"Actions of this step are:\n\n" + "\n\n".join(map(str, ans))
         else:
             return "Sorry, I can't find actions in this step."

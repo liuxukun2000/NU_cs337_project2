@@ -44,4 +44,4 @@ class AskIngredientsHandler(BaseHandler):
             for i in name.split():
                 ans += [ingredient for ingredient in recipe.ingredients if i in ingredient.name]
 
-        return f"You need :\n\n" + "\n\n".join(map(str, ans)) + "\n\nfor this recipe."
+        return f"You need :\n\n" + "\n\n".join(map(str, ans)) + "."
