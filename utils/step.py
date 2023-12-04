@@ -41,6 +41,12 @@ class RecipeStep:
                     text = text.replace(tool[0], f'**{tool[0]}**')
                     
             # Hopefully takes care of changing the names after transformations
+            
+            if len(substep.quantities) > 0:
+                for quantity in substep.quantities:
+                    if f"**{quantity[0]}" in text:
+                        continue
+                    text = text.replace(quantity[0], f'**{quantity[0]}**')
 
             if len(substep.ingredients) > 0:
                 for ing in substep.ingredients:
@@ -75,6 +81,7 @@ class RecipeStep:
     def from_string(step: str, ingredients: list[RecipeIngredient], step_number: int):
         step =  step.strip()
         step = RecipeStep.expand_degrees(step)
+        step = RecipeIngredient.replace_quantity_with_decimal(step)
         step = step.lower()
         
         #doc = nlp(step)

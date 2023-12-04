@@ -21,6 +21,7 @@ class RecipeSubstep:
         self.tools = self.get_tools(doc)
         self.duration, self.end_condition = self.get_duration(doc)
         self.temperature = self.get_temperature(doc)
+        self.quantities = self.get_quantity(doc)
 
         self.additional_info = None
 
@@ -140,6 +141,13 @@ class RecipeSubstep:
                 ingredients[i].add_step(self.parent_step_number)
                     
         return step_ingredients
+    
+    def get_quantity(self, doc: spacy.tokens.doc.Doc):
+        quantity = []
+        for token in doc:
+            if token.pos_ == "NUM":
+                quantity.append((token.text,token.i))
+        return quantity
     
     @staticmethod
     def get_actions(doc: spacy.tokens.doc.Doc):
