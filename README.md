@@ -1,4 +1,4 @@
-# Project 2+3
+# CS 337, Fall 2023, Project 2+3
 ## Group 9
 ### Eric Chen, Xukun Liu, Zafir Ansari
 
