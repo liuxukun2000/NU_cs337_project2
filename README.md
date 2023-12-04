@@ -12,7 +12,7 @@ https://clipchamp.com/watch/o0lGQW5ezWr
 run python main.py
 
 ## Run with GUI
-Please download source code of our GUI from , If you are using windows, go target\release and run steam.exe. Next run server.py in this repo then you can start chat. 
+Please download source code of our GUI from https://1drv.ms/u/s!Aq0hCsU27AjqgqZtfq5pqoEDCAzJBg?e=Eg25gv, If you are using windows, go target\release and run steam.exe. Next run server.py in this repo then you can start chat. 
 
 This GUI can only run on windows, if you have any questions about this GUI you can send email to xukunliu2025@u.northwestern.edu.
 
