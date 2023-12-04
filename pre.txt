@@ -1,6 +1,3 @@
-
-
-
 ---------------------------------------
 Hello!
 Walk me through a recipe from AllRecipes.com.
@@ -21,7 +18,7 @@ Go back one step.
 What temperature?
 Show me 3rd step.
 How do I do that?
-Scale this serving for 9 people
+Scale this serving for 9 people.
 Is this recipe vegetarian?
 Make this recipe vegetarian.
 Is this recipe vegetarian?
@@ -42,3 +39,7 @@ https://www.delish.com/holiday-recipes/thanksgiving/a29178578/how-to-dry-brine-t
 2
 Transform this recipe to Indian.
 Show me the first step.
+---------------------------------------
+https://www.bonappetit.com/recipe/sheet-pan-turkey-and-gravy
+2
+

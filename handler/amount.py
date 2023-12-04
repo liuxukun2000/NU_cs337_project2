@@ -16,7 +16,7 @@ class AmountHandler(BaseHandler):
         ans = re.findall(regex, inp)
         return sum([int(x) for x in ans]) // len(ans) if len(ans) else -1
     def match(self, inp: str, cfg) -> int:
-        handler = [handler for handler in cfg['handler'] if handler.type() == "get_ingredient"]
+        handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         # if len(cfg['handler']) and cfg['handler'][-1].type() == "get_ingredient":
         if handler:
             if ("people" in inp.lower() or 'person' in inp.lower()) and ("serving" in inp.lower() or self._get_number(inp) != -1):
@@ -44,9 +44,9 @@ class AmountHandler(BaseHandler):
                 ingredient.quantity = round(ingredient.quantity, 1)
         for i in range(len(recipe.steps)):
             step = recipe.steps[i]
-            for substep in step.substeps:
-                if len(substep.quantity) > 0:
-                    for j in range(substep.quantity):
-                        substep.quantity[j] = float(ori_recipe.steps[i].substeps[j].quantity) * number / recipe.servings
-                        substep.quantity[j] = round(substep.quantity[j], 1)
+            for k, substep in enumerate(step.substeps):
+                if len(substep.quantities) > 0:
+                    for j in range(len(substep.quantities)):
+                        substep.quantities[j] = float(ori_recipe.steps[i].substeps[k].quantities[j][0]) * number / recipe.servings
+                        substep.quantities[j] = round(substep.quantities[j], 1)
         return f"Here are the ingredients of: **{recipe.title}:**\n\n* [x] " + "\n\n* [x] ".join(map(str, recipe.ingredients))
