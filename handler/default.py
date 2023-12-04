@@ -21,7 +21,7 @@ class DefaultHandler(BaseHandler):
             return "Bye!"
         if not len(cfg['handler']):
             return """Hello! I am a recipe bot. I can help you with recipes. I can get recipes from 
-**3** websites: **Delish**, **Allrecipes**, and **Food Network**. Please specify a website first
+**3** websites: **Delish**, **Allrecipes**, and **Bonappetit**. Please specify a website first
 or you can just send me a link to a recipe. Then I can help you with the ingredients and steps."""
         if cfg['handler'][-1].type() == "search":
             handler = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
