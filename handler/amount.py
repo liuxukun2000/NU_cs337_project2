@@ -41,5 +41,12 @@ class AmountHandler(BaseHandler):
             ingredient = recipe.ingredients[i]
             if ingredient.quantity is not None:
                 ingredient.quantity = float(ori_recipe.ingredients[i].quantity) * number / recipe.servings
-                ingredient.quantity = round(ingredient.quantity, 3)
+                ingredient.quantity = round(ingredient.quantity, 1)
+        for i in range(len(recipe.steps)):
+            step = recipe.steps[i]
+            for substep in step.substeps:
+                if len(substep.quantity) > 0:
+                    for j in range(substep.quantity):
+                        substep.quantity[j] = float(ori_recipe.steps[i].substeps[j].quantity) * number / recipe.servings
+                        substep.quantity[j] = round(substep.quantity[j], 1)
         return f"Here are the ingredients of: **{recipe.title}:**\n\n* [x] " + "\n\n* [x] ".join(map(str, recipe.ingredients))
