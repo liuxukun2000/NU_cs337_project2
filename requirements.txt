@@ -1,0 +1,9 @@
+beautifulsoup4==4.12.2
+fastapi==0.104.1
+lxml==4.9.3
+nltk==3.8.1
+pydantic==2.5.2
+Requests==2.31.0
+spacy==3.7.2
+sse_starlette==1.6.5
+uvicorn==0.24.0.post1
