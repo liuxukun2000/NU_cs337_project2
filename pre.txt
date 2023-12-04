@@ -2,12 +2,15 @@
 
 
 ---------------------------------------
+Hello!
 Walk me through a recipe from AllRecipes.com.
 https://www.allrecipes.com/recipe/218091/classic-and-simple-meat-lasagna/
 2
 How do I preheat the oven?
 Thanks!
+Yes.
 Show me the ingredients list.
+Go back one step.
 Go to the next step.
 Repeat please.
 How long do I cook?
@@ -18,8 +21,7 @@ Go back one step.
 What temperature?
 Show me 3rd step.
 How do I do that?
-1
-Scale this serving for 20 people
+Scale this serving for 9 people
+Translate this recipe to Chinese
 3
-
 ---------------------------------------
