@@ -16,6 +16,8 @@ class GetStepHandler(BaseHandler):
         if len(cfg['handler']) and cfg['handler'][-1].type() == "get_recipe":
             if inp.lower().strip().startswith("2"):
                 return 2
+        if ("show" in inp.lower() or 'give' in inp.lower()) and ("step" in inp.lower() and "ingredient" in inp.lower()):
+            return 0
         if ("show" in inp.lower() or 'give' in inp.lower()) and "step" in inp.lower():
             return 2
         if "step" in inp.lower() and "next" in inp.lower():

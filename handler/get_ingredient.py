@@ -13,6 +13,8 @@ class GetIngredientHandler(BaseHandler):
         if len(cfg['handler']) and cfg['handler'][-1].type() == "get_recipe":
             if inp.lower().strip().startswith("1"):
                 return 1
+        if ("show" in inp.lower() or 'give' in inp.lower()) and ("ingredient" in inp.lower() and "step" in inp.lower()):
+            return 0
         if ("show" in inp.lower() or 'give' in inp.lower()) and "ingredient" in inp.lower():
             return 3
         return 0

@@ -17,7 +17,8 @@ class AmountHandler(BaseHandler):
         return sum([int(x) for x in ans]) // len(ans) if len(ans) else -1
     def match(self, inp: str, cfg) -> int:
         # handler = [handler for handler in cfg['handler'] if handler.type() == "get_ingredient"]
-        if len(cfg['handler']) and cfg['handler'][-1].type() == "get_ingredient":
+        #if len(cfg['handler']) and cfg['handler'][-1].type() == "get_ingredient":
+        if len(cfg['handler']):
             if ("people" in inp.lower() or 'person' in inp.lower()) and ("serving" in inp.lower() or self._get_number(inp) != -1):
                 return 1
         if len(cfg['handler']) and cfg['handler'][-1].type() == "amount":

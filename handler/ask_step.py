@@ -114,7 +114,7 @@ class AskStepsHandler(BaseHandler):
                         if i[0] in ans:
                             if sub.duration:
                                 anss.append(sub)
-            print(anss)
+            print("asking time time",anss)
             ans = ans.split()
             res = None
             for i in anss:

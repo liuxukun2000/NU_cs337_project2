@@ -88,7 +88,7 @@ class Cuisines(BaseHandler):
         ori_recipe = recipe_handler[-1].ori_recipe
         recipe = recipe_handler[-1].recipe
         
-        pattern = r'\b(transform|make)\b.+?indian'
+        pattern = r'\b(transform|make)\b.+?chinese'
         if bool(re.search(pattern, inp)):
             for i in range(len(recipe.ingredients)):
                 ingredient = recipe.ingredients[i]

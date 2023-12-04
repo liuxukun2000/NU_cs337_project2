@@ -5,7 +5,7 @@ from typing import Dict
 from utils.ingredient import RecipeIngredient
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
-
+from typing import List
 nlp = spacy.load('en_core_web_sm')
 
 class RecipeSubstep:
@@ -109,7 +109,7 @@ class RecipeSubstep:
                     
         return duration, end_condition
     
-    def get_ingredients(self, doc: spacy.tokens.doc.Doc, ingredients: list[RecipeIngredient]):
+    def get_ingredients(self, doc: spacy.tokens.doc.Doc, ingredients: List[RecipeIngredient]):
         # String match the ingredients
         patterns = [nlp.make_doc(ing.name) for ing in ingredients]
         matcher = PhraseMatcher(nlp.vocab)

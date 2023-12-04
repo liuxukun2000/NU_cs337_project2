@@ -12,6 +12,7 @@ from handler.search import SearchHandler
 from handler.select_web import SelectWebHandler
 from handler.default import DefaultHandler
 from handler.yes import YesHandler
+from handler.cuisines import Cuisines
 
 
 class HandlerManager:
@@ -30,6 +31,7 @@ class HandlerManager:
             AskIngredientsHandler(),
             AskStepsHandler(),
             DietaryRestrictions(),
+            Cuisines(),
         ]
         self.default_handler = DefaultHandler()
         self.cfg = dict(handler=[])

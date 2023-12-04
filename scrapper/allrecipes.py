@@ -27,12 +27,21 @@ class AllrecipesSpider(BaseSpider):
         ingredients = []
         for item in ingredients_list:
             ingredients.extend([ingredient.text.strip(" \n") for ingredient in item.children if ingredient != "\n"])
-        steps = soup.select_one("#mntl-sc-block_2-0")
-        steps = [step.text.strip(" \n") for step in steps.children if step != "\n"]
+        #steps = soup.select_one("#mntl-sc-block_2-0")
+        #steps = [step.text.strip(" \n") for step in steps.children if step != "\n"]
         servings = soup.select_one("#recipe-details_1-0 > div.mntl-recipe-details__content > div:nth-child(4) > div.mntl-recipe-details__value").text
         # remove substr like allrecipes/xxx\n from steps
         regex = re.compile(r"Allrecipes/.*")
-        steps = [regex.sub("", step) for step in steps]
+        #steps = [regex.sub("", step) for step in steps]
+        steps_ol = soup.select_one("#mntl-sc-block_2-0")
+        if steps_ol:
+            step_elements = steps_ol.find_all('li')
+            steps = []
+
+            for step in step_elements:
+                p_tag = step.find('p')
+                if p_tag:
+                    steps.append(p_tag.text.strip())
         return AllrecipesSpider(title, ingredients, steps, get_servings(servings))
 
 if __name__ == "__main__":

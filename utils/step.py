@@ -7,12 +7,12 @@ from typing import Dict
 from utils.ingredient import RecipeIngredient
 from spacy.matcher import Matcher
 from utils.substep import RecipeSubstep
-
+from typing import List
 nlp = spacy.load('en_core_web_sm')
 
 
 class RecipeStep:
-    def __init__(self, text, step_number, substeps: list[RecipeSubstep]):
+    def __init__(self, text, step_number, substeps: List[RecipeSubstep]):
         self.text = text
         self.step_number = step_number
         self.substeps = substeps
@@ -55,7 +55,7 @@ class RecipeStep:
         return self.processed_text
     
     @staticmethod
-    def from_string(step: str, ingredients: list[RecipeIngredient], step_number: int):
+    def from_string(step: str, ingredients: List[RecipeIngredient], step_number: int):
         step =  step.strip()
         step = RecipeStep.expand_degrees(step)
         step = step.lower()
