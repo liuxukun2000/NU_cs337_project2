@@ -92,7 +92,7 @@ def predict(query, model):
             finish_reason=None
         )
         chunk = ChatCompletionResponse(model=model, choices=[choice_data], object="chat.completion.chunk")
-        # time.sleep(random.random() * 0.1 + 0.05)
+        time.sleep(random.random() * 0.05 + 0.02)
         yield "{}".format(chunk.model_dump_json(exclude_unset=True))
     choice_data = ChatCompletionResponseStreamChoice(
         index=0,
