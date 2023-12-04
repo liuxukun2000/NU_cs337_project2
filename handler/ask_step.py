@@ -139,7 +139,7 @@ class AskStepsHandler(BaseHandler):
         inp = inp.lower()
         handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
         step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
-        if ("action" in inp or " do " in inp or 'step' in inp) and handler:
+        if ("action" in inp or " do " in inp and 'step' in inp) and handler:
             recipe = handler[-1].recipe
             step = step[-1].step - 1 if step else 0
             steps = recipe.steps[step]

@@ -4,6 +4,7 @@ from handler.base import BaseHandler
 class SearchHandler(BaseHandler):
     def __init__(self):
         self.ask_that = False
+        self.keywords = ""
 
     @staticmethod
     def type() -> str:
@@ -22,7 +23,9 @@ class SearchHandler(BaseHandler):
 
     def handle(self, inp: str, cfg) -> str:
         if self.ask_that or ('how' in inp.lower() and 'that' in inp.lower()):
-
+            if cfg['handler'] and cfg['handler'][-1].type() == "search":
+                ans = f"https://en.wikipedia.org/wiki/{self.keywords}"
+                return f"No worries. I found a Wikipedia page for you: {ans}"
             handler = [handler for handler in cfg['handler'] if handler.type() == "get_recipe"]
             step = [handler for handler in cfg['handler'] if handler.type() == "get_step"]
             ans = []
@@ -46,9 +49,9 @@ class SearchHandler(BaseHandler):
                             ans = i
                             break
                     self.ask_that = False
-                # if isinstance(ans, tuple):
-                #     ans = ans[0]
-                ans = f"https://en.wikipedia.org/wiki/{ans[0]}"
+                while isinstance(ans, tuple) or isinstance(ans, list):
+                    ans = ans[0]
+                ans = f"https://en.wikipedia.org/wiki/{ans}"
                 return f"No worries. I found a Wikipedia page for you: {ans}"
             else:
                 return "Please specify a recipe first."
@@ -67,6 +70,7 @@ class SearchHandler(BaseHandler):
             cfg['handler'].append(self)
             text = ''.join([i for i in text if i.isalpha() or i == ' '])
             text = text.replace(" ", "+")
+            self.keywords = text
             return f"No worries. I found a YouTube video for you: https://www.youtube.com/results?search_query={text}"
         else:
             pos = inp.lower().find("is a")
@@ -92,5 +96,6 @@ class SearchHandler(BaseHandler):
             text = inp[pos:].strip()
             text = ''.join([i for i in text if i.isalpha() or i == ' '])
             text = text.replace(" ", "+")
+            self.keywords = text
             return f"No worries. I found a Wikipedia page for you: https://en.wikipedia.org/wiki/{text}"
 
